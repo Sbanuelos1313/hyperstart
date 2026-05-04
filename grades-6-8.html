@@ -277,7 +277,7 @@ select.inp option{background:var(--surf2)}
 </svg>
         <div class="logo" style="font-size:34px;display:block">Hyper<em>Start</em></div>
         <div style="font-size:12px;color:var(--muted);margin-top:5px;letter-spacing:.08em;text-transform:uppercase">STEM/STEAM Career Pathways &middot; Grades 6&ndash;8</div>
-        <div style="margin-top:10px"><span class="tag tt">Northeast Oklahoma City</span><span class="tag tg">2026&ndash;27</span></div>
+        <div style="margin-top:10px"><span class="tag tt">Northeast OKC &amp; Millwood</span><span class="tag tg">2026&ndash;27</span></div>
       </div>
       <div class="card fade" style="animation-delay:.1s">
         <div class="h2 mb4">Select a demo profile</div>
@@ -289,6 +289,18 @@ select.inp option{background:var(--surf2)}
       </div>
       <div class="tc mt12" style="font-size:11px;color:var(--muted)">HyperStart &middot; Chronos AI &middot; Edmond, OK</div>
     </div>
+  </div>
+</div>
+
+
+<!-- PRE-ASSESSMENT SCREEN -->
+<div class="screen" id="s-preassess">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;max-width:480px;margin:0 auto;width:100%">
+    <div style="font-size:36px;margin-bottom:12px">&#128203;</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;text-align:center">Quick Check-In</div>
+    <p style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:24px;line-height:1.65">Before you start, rate yourself honestly on these 4 questions. We will ask again at the end to see how much you grew.</p>
+    <div id="pre-scales" style="width:100%"></div>
+    <button class="btn btn-gold btn-block" id="pre-submit" style="margin-top:20px;font-size:15px;padding:14px">Start My Journey &#8594;</button>
   </div>
 </div>
 
@@ -316,6 +328,8 @@ select.inp option{background:var(--surf2)}
     <div class="bni" id="bn-think" onclick="showTab('think')"><div class="bni-wrap">&#129504;</div><span class="bni-lbl">Big Questions</span></div>
     <div class="bni" id="bn-progress" onclick="showTab('progress')"><div class="bni-wrap">&#11088;</div><span class="bni-lbl">Progress</span></div>
     <div class="bni" id="bn-storyline" onclick="showTab('storyline')"><div class="bni-wrap">&#128218;</div><span class="bni-lbl">My Story</span></div>
+    <div class="bni" id="bn-ai" onclick="showTab('ai')"><div class="bni-wrap">&#129302;</div><span class="bni-lbl">AI</span></div>
+    <div class="bni" id="bn-engineering" onclick="showTab('engineering')"><div class="bni-wrap">&#127963;&#65039;</div><span class="bni-lbl">Build</span></div>
   </div>
 </div>
 
@@ -327,7 +341,7 @@ select.inp option{background:var(--surf2)}
   <div class="scroll">
     <div class="inner fade">
       <div class="h1 mb4">Program <span class="a">Dashboard</span></div>
-      <p class="lead">Live reporting &mdash; Northeast Oklahoma City, 2026&ndash;27.</p>
+      <p class="lead">Live reporting &mdash; Northeast OKC &amp; Millwood, 2026&ndash;27.</p>
       <div class="mrow">
         <div class="mcard"><div class="mval gold">347</div><div class="mlbl">Students Enrolled</div><div class="bar mt8"><div class="bf" style="width:77%;background:var(--gold)"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px">Goal: 450</div></div>
         <div class="mcard"><div class="mval teal">3</div><div class="mlbl">Schools Served</div><div style="margin-top:7px"><div class="tag tt" style="font-size:10px;margin-bottom:3px">F.D. Moon</div><div class="tag tt" style="font-size:10px;margin-bottom:3px">Classen SAS</div><div class="tag tt" style="font-size:10px">Millwood</div></div></div>
@@ -346,7 +360,89 @@ select.inp option{background:var(--surf2)}
         <div class="flex aic jb mb12"><div class="h2">&#128101; Student Roster</div><span class="tag tt">4 Demo Profiles</span></div>
         <div id="admin-roster"></div>
       </div>
-      <div class="card mb12"><div class="h2 mb12">&#127919; Career Cluster Distribution</div><div id="cluster-bars"></div></div>
+      <div class="card mb12"><div class="h2 mb12">&#127919; Career Cluster Distribution</div><div id="cluster-bars"></div>
+        </div>
+
+        <!-- DEMOGRAPHICS & REPORTING -->
+        <div class="card mb12">
+          <div class="h2 mb12">&#128203; Required Reporting Data</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div style="background:var(--surf2);border-radius:10px;padding:12px">
+              <div class="lbl">Schools Served</div>
+              <div style="font-size:12px;margin-top:4px;line-height:1.8">
+                &#127981; F.D. Moon Middle School<br>
+                &#127981; Classen SAS<br>
+                &#127981; Millwood Public Schools
+              </div>
+            </div>
+            <div style="background:var(--surf2);border-radius:10px;padding:12px">
+              <div class="lbl">Zip Codes Served</div>
+              <div style="font-size:12px;margin-top:4px;line-height:1.8">
+                73111 · F.D. Moon<br>
+                73103 · Classen SAS<br>
+                73110 · Millwood<br>
+                73114 · Extended zone
+              </div>
+            </div>
+            <div style="background:var(--surf2);border-radius:10px;padding:12px">
+              <div class="lbl">Demographics</div>
+              <div style="font-size:12px;margin-top:4px;line-height:1.8">
+                68% Black / African American<br>
+                19% Hispanic / Latino<br>
+                8% White<br>
+                5% Two or More Races
+              </div>
+            </div>
+            <div style="background:var(--surf2);border-radius:10px;padding:12px">
+              <div class="lbl">Program Alignment</div>
+              <div style="font-size:12px;margin-top:4px;line-height:1.8">
+                &#10003; CareerTech Goals &amp; Guardrails<br>
+                &#10003; Millwood District Priorities<br>
+                &#10003; OKCPS Guardrail No. 4<br>
+                &#10003; AI Literacy Standards
+              </div>
+            </div>
+          </div>
+
+          <!-- Pre/Post Assessment Delta -->
+          <div class="lbl" style="margin-bottom:10px">Pre &#8594; Post Assessment Outcomes (Projected)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div>
+              <div class="flex jb mb4"><span style="font-size:13px">STEM Confidence</span><span style="font-size:12px;color:var(--green);font-weight:700">+95% avg gain</span></div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <div style="height:8px;width:30%;background:var(--coral-d);border:1px solid var(--coral);border-radius:4px;position:relative"><span style="position:absolute;right:-28px;top:-1px;font-size:10px;color:var(--muted)">Pre</span></div>
+                <span style="font-size:12px;color:var(--muted)">&#8594;</span>
+                <div style="height:8px;width:80%;background:var(--green-d);border:1px solid var(--green);border-radius:4px;position:relative"><span style="position:absolute;right:-32px;top:-1px;font-size:10px;color:var(--muted)">Post</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex jb mb4"><span style="font-size:13px">Career Awareness</span><span style="font-size:12px;color:var(--green);font-weight:700">+214% avg gain</span></div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <div style="height:8px;width:20%;background:var(--coral-d);border:1px solid var(--coral);border-radius:4px"></div>
+                <span style="font-size:12px;color:var(--muted)">&#8594;</span>
+                <div style="height:8px;width:85%;background:var(--green-d);border:1px solid var(--green);border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex jb mb4"><span style="font-size:13px">Financial Literacy</span><span style="font-size:12px;color:var(--green);font-weight:700">+225% avg gain</span></div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <div style="height:8px;width:15%;background:var(--coral-d);border:1px solid var(--coral);border-radius:4px"></div>
+                <span style="font-size:12px;color:var(--muted)">&#8594;</span>
+                <div style="height:8px;width:90%;background:var(--green-d);border:1px solid var(--green);border-radius:4px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex jb mb4"><span style="font-size:13px">AI Literacy Awareness</span><span style="font-size:12px;color:var(--teal);font-weight:700">New metric</span></div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <div style="height:8px;width:10%;background:var(--coral-d);border:1px solid var(--coral);border-radius:4px"></div>
+                <span style="font-size:12px;color:var(--muted)">&#8594;</span>
+                <div style="height:8px;width:88%;background:var(--teal-d);border:1px solid var(--teal);border-radius:4px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb12" style="display:none"><!-- budget-bars placeholder</div>
       <div class="card-grid mb12">
         <div class="card">
           <div class="h2 mb10">&#128205; Zip Codes</div>
@@ -558,6 +654,85 @@ const INTEREST_MAP={
   business:{label:'Business',icon:'&#128188;',clusters:['data','tech'],tip:'Entrepreneurship, business analytics, and fintech combine business with STEM.'},
   animals:{label:'Animals',icon:'&#128062;',clusters:['health','energy'],tip:'Veterinary science, zoology, and marine biology are all health and science careers.'}
 };
+
+const AI_LITERACY_MODULES=[
+  {
+    id:'what_is_ai',
+    icon:'&#129302;',
+    title:'What Is AI — Really?',
+    tag:'AI Basics',
+    content:'Artificial Intelligence is software that learns from examples instead of following rules someone wrote. When you scroll TikTok and it knows what to show you next — that is AI. When Spotify builds you a playlist — AI. When a doctor uses software to read an X-ray — AI. AI does not think. It finds patterns in data. The patterns it finds depend entirely on what data it was trained on.',
+    activity:{
+      type:'sort',
+      prompt:'Which of these are AI — and which are just regular software?',
+      items:[
+        {label:'Netflix recommends a show',correct:true},
+        {label:'A calculator adds 2+2',correct:false},
+        {label:'GPS reroutes around traffic',correct:true},
+        {label:'A lightswitch turns on',correct:false},
+        {label:'Spam filter catches junk mail',correct:true},
+        {label:'A clock shows the time',correct:false}
+      ]
+    },
+    person:'Dr. Fei-Fei Li',
+    personRole:'AI pioneer who built ImageNet — the dataset that taught computers to see',
+    personImg:'&#128105;&#127995;&#8205;&#128187;',
+    ethicsQ:'If AI learns from past data — and the past was unfair — what does that mean for the future?'
+  },
+  {
+    id:'ai_careers',
+    icon:'&#128640;',
+    title:'AI is Changing Every Career',
+    tag:'AI & Your Future',
+    content:'AI will not replace workers — it will replace tasks. A nurse who uses AI diagnostic tools can see 3x more patients. A welder who programs robotic arms earns 40% more. An artist who uses AI generation tools ships projects faster. The question is not whether AI will affect your career. It will. The question is whether you will be the person using AI — or waiting for someone else to.',
+    activity:{
+      type:'match',
+      prompt:'Match each career to how AI is already changing it:',
+      pairs:[
+        {career:'Doctor',aiUse:'AI reads X-rays and flags anomalies before the doctor reviews'},
+        {career:'Teacher',aiUse:'AI identifies which students are struggling before they fall behind'},
+        {career:'Architect',aiUse:'AI generates 50 building designs in seconds for the architect to choose from'},
+        {career:'Journalist',aiUse:'AI writes first drafts of data-heavy reports like earnings summaries'},
+        {career:'Farmer',aiUse:'AI monitors crops by satellite and predicts yield and disease risk'}
+      ]
+    },
+    person:'Ayanna Howard',
+    personRole:'Roboticist & Dean — uses AI to build robots that help children with disabilities',
+    personImg:'&#128105;&#127998;&#8205;&#129302;',
+    ethicsQ:'If AI can do more of a doctor\'s job — should doctors cost less? Who decides?'
+  },
+  {
+    id:'ai_bias',
+    icon:'&#9878;&#65039;',
+    title:'AI Can Be Wrong — and Dangerous',
+    tag:'AI Ethics',
+    content:'In 2018 a hospital used an AI to decide which patients got extra care. The AI gave Black patients lower scores than equally sick white patients — because it used past spending data, and historically Black patients had less money spent on them. The AI was not racist. It learned from a racist system. This is called algorithmic bias. Every AI reflects the world it was trained on — including its injustices.',
+    activity:{
+      type:'reflect',
+      prompt:'An AI is being used to decide who gets a job interview at a tech company. It was trained on 10 years of past hiring data. The company hired mostly white and Asian men for 10 years. What do you think will happen — and what should be done about it?'
+    },
+    person:'Timnit Gebru',
+    personRole:'AI researcher fired by Google for publishing research on AI bias — now runs her own institute',
+    personImg:'&#128105;&#127999;&#8205;&#128187;',
+    ethicsQ:'Who is responsible when an AI makes a harmful decision — the programmer, the company, or the AI?'
+  },
+  {
+    id:'ai_you',
+    icon:'&#127775;',
+    title:'You and AI — The Next 10 Years',
+    tag:'Your AI Future',
+    content:'By the time you graduate high school, AI will be a standard tool in every career — like Excel is today. The students who learn to work WITH AI now will have a massive advantage. You do not need to be a programmer. You need to understand what AI can and cannot do, how to give it good instructions, and how to check whether its outputs are trustworthy. That is AI literacy — and it is one of the most valuable skills of your generation.',
+    activity:{
+      type:'plan',
+      prompt:'You are 25 years old. AI has changed your career field significantly. What is ONE thing you wish you had learned in middle school to prepare for this?',
+      placeholder:'Think about your matched career field and be specific...'
+    },
+    person:'Sam Altman',
+    personRole:'CEO of OpenAI — but more importantly, the students who learn to use AI well will lead companies like his',
+    personImg:'&#128104;&#127996;&#8205;&#128187;',
+    ethicsQ:'Should AI literacy be required in every school? Who should pay for it?'
+  }
+];
 const QUIZ_QS=[
   {q:'When you get new tech, you usually…',opts:[{icon:'🔧',text:'Take it apart to see how it works',pts:{engineering:2,tech:1}},{icon:'📖',text:'Read everything about it carefully',pts:{data:2,health:1}},{icon:'🎮',text:'Start using it and figure it out',pts:{tech:2,creative:1}},{icon:'🤝',text:'Share it and explore with friends',pts:{health:1,creative:1}}]},
   {q:'Your school needs a new student space. Your contribution?',opts:[{icon:'🏗️',text:'Design the layout and structure',pts:{engineering:2,creative:1}},{icon:'💻',text:'Build an app for students to vote',pts:{tech:2,data:1}},{icon:'📊',text:'Survey students and analyze results',pts:{data:2}},{icon:'🌿',text:'Make it eco-friendly with solar',pts:{energy:2,engineering:1}}]},
@@ -617,16 +792,23 @@ function init(){
 function loginStudent(id){
   student=JSON.parse(JSON.stringify(PERSONAS.find(p=>p.id===id)));
   answers={};quizState={q:0,scores:{}};
-  go('s-app');showTab(student.tab||'home');
+  // Capture pre-assessment baseline if not already done
+  if(!answers.preAssessmentDone){
+    answers.preScores={conf:0,aware:0,money:0,why:0};
+    answers.preAssessmentDone=false;
+    go('s-preassess');
+  } else {
+    go('s-app');showTab(student.tab||'home');
+  }
 }
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const target=document.getElementById(id);if(target)target.classList.add('active');if(id==='s-preassess')setTimeout(initPreAssessment,50);}
 
 function showTab(tab){
   currentTab=tab;
   document.getElementById('t-name').textContent=student.name.split(' ')[0];
   document.getElementById('t-xp').textContent=student.xp+' XP';
   document.getElementById('app-sub').textContent=student.grade+'th Grade · '+student.school;
-  ['home','pathways','money','think','progress','storyline'].forEach(t=>{
+  ['home','pathways','money','think','progress','storyline','ai','engineering'].forEach(t=>{
     const navEl=document.getElementById('bn-'+t);
     if(navEl)navEl.className='bni'+(t===tab?' active':'');
   });
@@ -639,6 +821,8 @@ function showTab(tab){
   else if(tab==='think')renderThink(inner);
   else if(tab==='progress')renderProgress(inner);
   else if(tab==='storyline')renderStoryline(inner);
+  else if(tab==='ai')renderAILiteracy(inner);
+  else if(tab==='engineering')renderEngineering(inner);
 }
 
 function renderHome(el){
@@ -699,6 +883,8 @@ function renderHome(el){
   const ht=document.getElementById('h-think');if(ht)ht.onclick=()=>showTab('think');
   const hpr=document.getElementById('h-progress');if(hpr)hpr.onclick=()=>showTab('progress');
   const hStory=document.getElementById('h-storyline');if(hStory)hStory.onclick=()=>showTab('storyline');
+  const hAI=document.getElementById('h-ai');if(hAI)hAI.onclick=()=>showTab('ai');
+  const hEng=document.getElementById('h-engineering');if(hEng)hEng.onclick=()=>showTab('engineering');
 }
 
 function renderPathways(el){
@@ -1238,6 +1424,304 @@ function pickInterest(key){
     '</div>';
 }
 
+
+function renderAILiteracy(el){
+  const modIdx=answers.aiMod||0;
+  const mod=AI_LITERACY_MODULES[modIdx];
+  const progress=AI_LITERACY_MODULES.map((_,i)=>'<div style="flex:1;height:4px;border-radius:2px;background:'+(i<=modIdx?'var(--teal)':'var(--border)')+'"></div>').join('');
+
+  let activityHtml='';
+  if(mod.activity.type==='sort'){
+    activityHtml=
+      '<div class="card mb12" style="border-color:rgba(45,212,191,.2)">'+
+        '<div class="h2 mb8">&#129514; Try It</div>'+
+        '<p style="font-size:13px;color:var(--muted);margin-bottom:12px">'+mod.activity.prompt+'</p>'+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="sort-grid">'+
+          mod.activity.items.map((item,i)=>
+            '<div id="sort-'+i+'" data-correct="'+item.correct+'" style="padding:10px 12px;border-radius:10px;border:2px solid var(--border);background:var(--surf2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s">'+
+              item.label+
+            '</div>'
+          ).join('')+
+        '</div>'+
+        '<div id="sort-result" style="margin-top:12px;font-size:13px;color:var(--muted)">Tap each one to guess!</div>'+
+      '</div>';
+  } else if(mod.activity.type==='match'){
+    activityHtml=
+      '<div class="card mb12" style="border-color:rgba(45,212,191,.2)">'+
+        '<div class="h2 mb8">&#129517; Career + AI</div>'+
+        '<p style="font-size:13px;color:var(--muted);margin-bottom:12px">'+mod.activity.prompt+'</p>'+
+        '<div style="display:flex;flex-direction:column;gap:8px">'+
+          mod.activity.pairs.map(p=>
+            '<div style="padding:12px;border-radius:10px;background:var(--surf2);border:1px solid var(--border)">'+
+              '<div style="font-weight:700;font-size:13px;color:var(--teal);margin-bottom:4px">&#128188; '+p.career+'</div>'+
+              '<div style="font-size:12px;color:var(--muted);line-height:1.5">'+p.aiUse+'</div>'+
+            '</div>'
+          ).join('')+
+        '</div>'+
+      '</div>';
+  } else if(mod.activity.type==='reflect'){
+    activityHtml=
+      '<div class="card mb12" style="border-color:rgba(167,139,250,.2)">'+
+        '<div class="h2 mb8">&#129504; Your Take</div>'+
+        '<p style="font-size:14px;font-weight:500;line-height:1.6;margin-bottom:12px">'+mod.activity.prompt+'</p>'+
+        '<textarea class="inp" rows="4" id="ai-reflect" placeholder="Write your honest answer..." style="resize:none;line-height:1.6">'+(answers['aiReflect_'+modIdx]||'')+'</textarea>'+
+        '<button class="btn btn-gold btn-block mt8" id="save-ai-reflect">Save +20 XP</button>'+
+      '</div>';
+  } else if(mod.activity.type==='plan'){
+    activityHtml=
+      '<div class="card mb12" style="border-color:rgba(245,200,66,.2)">'+
+        '<div class="h2 mb8">&#127775; Your Future</div>'+
+        '<p style="font-size:14px;font-weight:500;line-height:1.6;margin-bottom:12px">'+mod.activity.prompt+'</p>'+
+        '<textarea class="inp" rows="4" id="ai-plan" placeholder="'+(mod.activity.placeholder||'Your answer...')+'" style="resize:none;line-height:1.6">'+(answers['aiPlan_'+modIdx]||'')+'</textarea>'+
+        '<button class="btn btn-gold btn-block mt8" id="save-ai-plan">Save +20 XP</button>'+
+      '</div>';
+  }
+
+  el.innerHTML=
+    '<div class="h1 mb4">&#129302; <span class="a">AI Literacy</span></div>'+
+    '<p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.65">Understanding AI is the most important skill of your generation. Not coding — understanding.</p>'+
+    '<div class="flex aic g8 mb16">'+progress+'</div>'+
+    '<div class="mb8"><span class="tag tt">Module '+(modIdx+1)+' of '+AI_LITERACY_MODULES.length+'</span><span class="tag ta">'+mod.tag+'</span></div>'+
+
+    '<div class="card mb12" style="background:linear-gradient(135deg,rgba(45,212,191,.08),rgba(167,139,250,.06));border-color:rgba(45,212,191,.2);padding:22px">'+
+      '<div style="font-size:40px;margin-bottom:10px">'+mod.icon+'</div>'+
+      '<div class="h2" style="margin-bottom:10px">'+mod.title+'</div>'+
+      '<p style="font-size:14px;color:var(--muted);line-height:1.75">'+mod.content+'</p>'+
+    '</div>'+
+
+    activityHtml+
+
+    '<div style="background:var(--surf2);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:12px">'+
+      '<div style="font-size:32px;flex-shrink:0">'+mod.personImg+'</div>'+
+      '<div>'+
+        '<div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Trailblazer</div>'+
+        '<div style="font-weight:700;font-size:14px;margin-bottom:2px">'+mod.person+'</div>'+
+        '<div style="font-size:12px;color:var(--muted);line-height:1.4">'+mod.personRole+'</div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="lens-card lens-eth mb12">'+
+      '<div class="lens-title">&#9878;&#65039; Ethics Question</div>'+
+      '<div class="lens-q">&ldquo;'+mod.ethicsQ+'&rdquo;</div>'+
+    '</div>'+
+
+    '<div class="flex g8 mt4" id="ai-nav"></div>'+
+    '<div style="height:24px"></div>';
+
+  // Wire sort activity
+  if(mod.activity.type==='sort'){
+    const items=document.querySelectorAll('[id^="sort-"]');
+    let answered=0;
+    items.forEach(function(el){
+      el.addEventListener('click',function(){
+        const correct=this.dataset.correct==='true';
+        this.style.borderColor=correct?'var(--green)':'var(--coral)';
+        this.style.background=correct?'var(--green-d)':'var(--coral-d)';
+        this.style.color=correct?'var(--green)':'var(--coral)';
+        this.innerHTML=(correct?'&#10003; ':'&#10005; ')+this.innerHTML;
+        this.style.pointerEvents='none';
+        answered++;
+        const result=document.getElementById('sort-result');
+        if(result)result.textContent=answered+' of '+items.length+' answered';
+      });
+    });
+  }
+
+  // Wire reflect/plan save
+  const saveReflectBtn=document.getElementById('save-ai-reflect');
+  if(saveReflectBtn)saveReflectBtn.onclick=function(){
+    const v=document.getElementById('ai-reflect')?.value?.trim();
+    if(v){answers['aiReflect_'+modIdx]=v;awardXP(20);this.textContent='Saved! +20 XP';this.disabled=true;this.style.background='var(--green)';}
+  };
+  const savePlanBtn=document.getElementById('save-ai-plan');
+  if(savePlanBtn)savePlanBtn.onclick=function(){
+    const v=document.getElementById('ai-plan')?.value?.trim();
+    if(v){answers['aiPlan_'+modIdx]=v;awardXP(20);this.textContent='Saved! +20 XP';this.disabled=true;this.style.background='var(--green)';}
+  };
+
+  // Nav buttons
+  const nav=document.getElementById('ai-nav');
+  if(!nav)return;
+  if(modIdx>0){
+    const pb=document.createElement('button');pb.className='btn btn-out';pb.innerHTML='&larr; Previous';
+    pb.onclick=function(){answers.aiMod=modIdx-1;showTab('ai');};nav.appendChild(pb);
+  }
+  if(modIdx<AI_LITERACY_MODULES.length-1){
+    const nb=document.createElement('button');nb.className='btn btn-teal';nb.style.flex='1';
+    nb.innerHTML='Next Module &rarr; <span style="font-size:11px;opacity:.7">+25 XP</span>';
+    nb.onclick=function(){answers.aiMod=modIdx+1;awardXP(25);showTab('ai');};nav.appendChild(nb);
+  } else {
+    const nb=document.createElement('button');nb.className='btn btn-gold';nb.style.flex='1';
+    nb.innerHTML='Complete! See My Progress &rarr; <span style="font-size:11px;opacity:.7">+50 XP</span>';
+    nb.onclick=function(){awardXP(50);showTab('progress');};nav.appendChild(nb);
+  }
+}
+
+
+function renderEngineering(el){
+  if(!answers.engStep) answers.engStep=0;
+  const step=answers.engStep;
+
+  const CHALLENGE={
+    title:'Bridge Design Challenge',
+    brief:'The city of Northeast OKC needs a pedestrian bridge over a flood channel. You are the engineering team. You have a $180,000 budget. Every decision has a tradeoff.',
+    steps:[
+      {
+        q:'Choose your bridge material:',
+        opts:[
+          {label:'Steel',cost:80000,strength:95,maint:15000,note:'Strongest — but highest maintenance cost per year.'},
+          {label:'Reinforced Concrete',cost:60000,strength:85,maint:8000,note:'Durable and lower maintenance — but heavy. Needs stronger foundation.'},
+          {label:'Recycled Composite',cost:45000,strength:70,maint:4000,note:'Eco-friendly and low cost — but lower load capacity.'}
+        ]
+      },
+      {
+        q:'Choose your foundation type:',
+        opts:[
+          {label:'Deep Pile Foundation',cost:55000,strength:10,maint:2000,note:'Best for unstable soil near the flood channel. Most expensive.'},
+          {label:'Spread Footing',cost:25000,strength:5,maint:3000,note:'Works for solid soil. Cheaper — but risky if soil shifts.'},
+          {label:'Floating Slab',cost:15000,strength:3,maint:5000,note:'Lowest upfront cost — but requires frequent inspection.'}
+        ]
+      },
+      {
+        q:'Add a safety feature:',
+        opts:[
+          {label:'LED Lighting + Cameras',cost:12000,strength:0,maint:1500,note:'Increases community safety and reduces vandalism.'},
+          {label:'Emergency Phone Stations',cost:8000,strength:0,maint:500,note:'Low tech but reliable. Works during power outages.'},
+          {label:'Skip — stay on budget',cost:0,strength:0,maint:0,note:'Saves money but leaves a safety gap the community will feel.'}
+        ]
+      }
+    ]
+  };
+
+  if(step>=CHALLENGE.steps.length){
+    // Results
+    const choices=answers.engChoices||[];
+    let totalCost=0,totalMaint=0,totalStrength=0;
+    choices.forEach(function(c,i){
+      const opt=CHALLENGE.steps[i].opts[c];
+      totalCost+=opt.cost;totalMaint+=opt.maint;totalStrength+=opt.strength;
+    });
+    const remaining=180000-totalCost;
+    const color=remaining>=0?'var(--green)':'var(--coral)';
+    const status=remaining>=0?'Under Budget &#10003;':'OVER BUDGET &#9888;';
+
+    el.innerHTML=
+      '<div class="h1 mb4">&#127963;&#65039; <span class="a">Your Bridge</span></div>'+
+      '<div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(45,212,191,.06));border:1px solid rgba(245,200,66,.25);border-radius:16px;padding:24px;margin-bottom:14px">'+
+        '<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Your Design</div>'+
+        choices.map(function(c,i){
+          const opt=CHALLENGE.steps[i].opts[c];
+          return '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">'+
+            '<span style="font-size:13px;font-weight:600">'+opt.label+'</span>'+
+            '<span style="font-size:13px;color:var(--gold);font-family:DM Mono,monospace">$'+opt.cost.toLocaleString()+'</span>'+
+          '</div>';
+        }).join('')+
+        '<div style="display:flex;justify-content:space-between;padding:12px 0 0">'+
+          '<span style="font-weight:700">Total Cost</span>'+
+          '<span style="font-weight:700;color:'+color+';font-family:DM Mono,monospace">$'+totalCost.toLocaleString()+' / $180,000</span>'+
+        '</div>'+
+        '<div style="margin-top:8px;font-size:13px;color:'+color+';font-weight:700">'+status+'</div>'+
+        (remaining>=0?'<div style="font-size:12px;color:var(--muted);margin-top:4px">$'+remaining.toLocaleString()+' remaining — could fund community art on the bridge.</div>':
+          '<div style="font-size:12px;color:var(--coral);margin-top:4px">You are $'+Math.abs(remaining).toLocaleString()+' over budget. Which choice would you change?</div>')+
+      '</div>'+
+      '<div class="lens-card lens-eth mb12">'+
+        '<div class="lens-title">&#9878;&#65039; Ethics Debrief</div>'+
+        '<div class="lens-body">Your annual maintenance cost is $'+totalMaint.toLocaleString()+'/year. Over 10 years that is $'+( totalMaint*10).toLocaleString()+'. Engineers are responsible for these costs long after the ribbon is cut. The community pays them in taxes. That is the real weight of an engineering decision.</div>'+
+      '</div>'+
+      '<button class="btn btn-gold btn-block" id="eng-done">Complete! +60 XP &#8594;</button>'+
+      '<button class="btn btn-out btn-block" style="margin-top:8px" id="eng-retry">Try Again</button>';
+
+    const doneBtn=document.getElementById('eng-done');
+    if(doneBtn)doneBtn.onclick=function(){awardXP(60);showTab('progress');};
+    const retryBtn=document.getElementById('eng-retry');
+    if(retryBtn)retryBtn.onclick=function(){answers.engStep=0;answers.engChoices=[];showTab('engineering');};
+    return;
+  }
+
+  const s=CHALLENGE.steps[step];
+  const pct=Math.round((step/CHALLENGE.steps.length)*100);
+  const budgetUsed=(answers.engChoices||[]).reduce(function(sum,c,i){return sum+CHALLENGE.steps[i].opts[c].cost;},0);
+  const budgetLeft=180000-budgetUsed;
+
+  el.innerHTML=
+    '<div class="h1 mb4">&#127963;&#65039; <span class="a">Bridge Challenge</span></div>'+
+    '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5">'+CHALLENGE.brief+'</div>'+
+    '<div class="card mb12" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px">'+
+      '<div><div style="font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase">Budget Remaining</div>'+
+        '<div style="font-family:Bricolage Grotesque,sans-serif;font-size:22px;font-weight:800;color:'+(budgetLeft>=50000?'var(--green)':budgetLeft>=20000?'var(--gold)':'var(--coral)')+'">$'+budgetLeft.toLocaleString()+'</div></div>'+
+      '<div style="text-align:right"><div style="font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase">Decision</div>'+
+        '<div style="font-size:16px;font-weight:700">'+(step+1)+' of '+CHALLENGE.steps.length+'</div></div>'+
+    '</div>'+
+    '<div style="height:6px;background:var(--surf2);border-radius:3px;overflow:hidden;margin-bottom:16px">'+
+      '<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px"></div>'+
+    '</div>'+
+    '<div class="h2 mb12">'+s.q+'</div>'+
+    '<div id="eng-opts" style="display:flex;flex-direction:column;gap:10px">'+
+      s.opts.map(function(opt,i){
+        return '<div id="eopt-'+i+'" style="padding:16px;border-radius:12px;border:2px solid var(--border);background:var(--surf);cursor:pointer;transition:all .2s">'+
+          '<div class="flex jb aic mb4">'+
+            '<div style="font-weight:700;font-size:15px">'+opt.label+'</div>'+
+            '<div style="font-family:DM Mono,monospace;font-weight:700;color:var(--gold);font-size:14px">$'+opt.cost.toLocaleString()+'</div>'+
+          '</div>'+
+          '<div style="font-size:12px;color:var(--muted);line-height:1.5">'+opt.note+'</div>'+
+          '<div style="font-size:11px;color:var(--teal);margin-top:6px;font-weight:600">Annual maintenance: $'+opt.maint.toLocaleString()+'/yr</div>'+
+        '</div>';
+      }).join('')+
+    '</div>'+
+    '<div style="height:24px"></div>';
+
+  s.opts.forEach(function(_,i){
+    const el2=document.getElementById('eopt-'+i);
+    if(el2)el2.onclick=function(){
+      this.style.borderColor='var(--gold)';this.style.background='var(--gold-d)';
+      document.querySelectorAll('[id^="eopt-"]').forEach(function(e){e.style.pointerEvents='none';});
+      if(!answers.engChoices)answers.engChoices=[];
+      answers.engChoices[step]=i;
+      setTimeout(function(){answers.engStep=step+1;showTab('engineering');},400);
+    };
+  });
+}
+
+
+function initPreAssessment(){
+  const scales=['conf','aware','money','why'];
+  const labels={conf:'I feel confident about STEM/STEAM subjects',aware:'I know of careers that excite me',money:'I understand how money and finances work',why:'I can see myself making a difference through a career'};
+  const container=document.getElementById('pre-scales');
+  if(!container)return;
+  container.innerHTML=scales.map(k=>
+    '<div style="margin-bottom:18px">'+
+      '<div style="font-size:13px;font-weight:500;margin-bottom:8px;line-height:1.5">'+labels[k]+'</div>'+
+      '<div style="display:flex;gap:8px" id="pre-'+k+'">'+
+        [1,2,3,4,5].map(i=>
+          '<button style="flex:1;padding:10px 4px;border-radius:8px;border:2px solid var(--border);background:var(--surf2);color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s" id="pre-'+k+'-'+i+'" onclick="selectPre(\''+k+'\','+i+')">'+i+'</button>'
+        ).join('')+
+      '</div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px"><span>Not at all</span><span>Very much</span></div>'+
+    '</div>'
+  ).join('');
+
+  const submitBtn=document.getElementById('pre-submit');
+  if(submitBtn)submitBtn.onclick=function(){
+    const complete=scales.every(k=>answers.preScores&&answers.preScores[k]>0);
+    if(!complete){alert('Please rate all 4 questions before continuing.');return;}
+    answers.preAssessmentDone=true;
+    go('s-app');showTab('home');
+  };
+}
+
+function selectPre(k,val){
+  answers.preScores=answers.preScores||{};
+  answers.preScores[k]=val;
+  [1,2,3,4,5].forEach(i=>{
+    const btn=document.getElementById('pre-'+k+'-'+i);
+    if(btn){
+      btn.style.borderColor=i===val?'var(--teal)':'var(--border)';
+      btn.style.background=i===val?'var(--teal-d)':'var(--surf2)';
+      btn.style.color=i===val?'var(--teal)':'var(--muted)';
+    }
+  });
+}
+
 function clusterKey(){
   const m={'Tech & Innovation':'tech','Health Sciences':'health','Engineering & Design':'engineering','Data & Analytics':'data','Energy & Environment':'energy','Creative Technology':'creative'};
   return m[student?.cluster]||null;
@@ -1306,7 +1790,7 @@ init(); loginStudent("zara");
       '</div><span style="color:var(--gold)">&#8594;</span>'+
       '</div>'+
     '</div>'+
-    '<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
+    '<div class="card clickable mb8" id="h-ai" style="border-left:3px solid var(--teal)">'+'<div class='flex aic jb'><div class='flex aic g8'><span style='font-size:20px'>&#129302;</span><div><div class='h3' style='margin-bottom:2px'>AI Literacy</div><div style='font-size:12px;color:var(--muted)'>What AI is, how it works, what it means for you</div></div></div><span style='color:var(--gold)'>&#8594;</span></div></div>'+'<div class="card clickable mb8" id="h-engineering" style="border-left:3px solid var(--gold)">'+'<div class='flex aic jb'><div class='flex aic g8'><span style='font-size:20px'>&#127963;&#65039;</span><div><div class='h3' style='margin-bottom:2px'>Bridge Design Challenge</div><div style='font-size:12px;color:var(--muted)'>Engineering problem-solving with real tradeoffs</div></div></div><span style='color:var(--gold)'>&#8594;</span></div></div>'+'<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
       '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#11088;</span>'+
         '<div><div class="h3" style="margin-bottom:2px">My Progress</div>'+
         '<div style="font-size:12px;color:var(--muted)">Badges, reflections &amp; post-survey</div></div>'+
