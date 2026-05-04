@@ -233,6 +233,7 @@ select.inp option{background:var(--surf2)}
     <div class="bni" id="bn-money" onclick="showTab(\x27money\x27)"><div class="bni-wrap">&#128176;</div><span class="bni-lbl">Life Skills</span></div>
     <div class="bni" id="bn-think" onclick="showTab(\x27think\x27)"><div class="bni-wrap">&#129504;</div><span class="bni-lbl">Big Questions</span></div>
     <div class="bni" id="bn-progress" onclick="showTab(\x27progress\x27)"><div class="bni-wrap">&#11088;</div><span class="bni-lbl">Progress</span></div>
+    <div class="bni" id="bn-storyline" onclick="showTab(\x27storyline\x27)"><div class="bni-wrap">&#128218;</div><span class="bni-lbl">My Story</span></div>
   </div>
 </div>
 
@@ -360,6 +361,108 @@ const WOVEN={
     why:{title:'💡 Your Why',q:'What does your community need to see itself in that does not exist yet?'}
   }
 };
+
+const STORYLINES={
+  tech:{
+    name:'Alex',grade:'7th',year:2032,job:'Lead Game Developer at a major studio',
+    steps:[
+      {year:'7th Grade',choice:'You discover coding in a free after-school app. Do you keep going?',options:['Yes — I stay up late building my first game','Not sure — I try it but quit after a week'],scores:[2,0],result:'You build a simple quiz game. It crashes constantly. You fix it 47 times. That stubbornness is what engineers call debugging.'},
+      {year:'8th Grade',choice:'Your school offers a cybersecurity elective. It conflicts with gym. What do you pick?',options:['Cybersecurity — I want to know how systems work','Gym — I need that credit'],scores:[2,1],result:'You learn that every app you use has vulnerabilities. You find one in your school\'s lunch portal. You tell the principal instead of exploiting it. That decision matters more than the skill.'},
+      {year:'High School',choice:'A local tech company offers a paid summer internship. The pay is low but the experience is real.',options:['Take it — real experience beats summer break','Skip it — I need money, not experience'],scores:[2,1],result:'You spend the summer surrounded by engineers who look nothing like you. One of them becomes your mentor. She is the reason you get your first real job.'},
+      {year:'College',choice:'You get into two programs: Computer Science at OU, or a coding bootcamp that costs less and takes 6 months.',options:['OU — I want the full degree','Bootcamp — I want to work faster'],scores:[2,2],result:'Both paths work. What matters is what you build while you\'re there.'},
+      {year:'2032',choice:'',options:[],scores:[],result:'You\'re 24. You just shipped a game played by 2 million people. Three of your characters are based on people from your neighborhood. That was a choice. It always is.'}
+    ]
+  },
+  health:{
+    name:'Jordan',grade:'6th',year:2033,job:'Biomedical Researcher at a children\'s hospital',
+    steps:[
+      {year:'6th Grade',choice:'Your grandmother gets diagnosed with diabetes. You want to understand what that means.',options:['You research it — read everything you can find','You feel helpless and avoid thinking about it'],scores:[2,0],result:'You learn that diabetes is more common in Black and Latino communities — not because of genetics alone, but because of food access, stress, and healthcare gaps. That is the moment you stop seeing health as just biology.'},
+      {year:'7th Grade',choice:'Your science teacher offers extra credit for a health research project. It takes 10 hours.',options:['You do it — you want to understand how medicine works','You skip it — 10 hours is a lot'],scores:[2,0],result:'You discover that most clinical trials in US history excluded Black patients. That means treatments developed without your community\'s data. You write that in your project. Your teacher submits it to a state competition.'},
+      {year:'High School',choice:'You get accepted to a summer medical program at OU Health. It means missing your cousin\'s quinceañera.',options:['You go — this opportunity won\'t come twice','You stay — family comes first'],scores:[2,2],result:'Both choices are right. What defines you is what you do next either way.'},
+      {year:'College',choice:'Pre-med is brutal. Your GPA drops one semester. You consider switching.',options:['You stay — you remember why you started','You switch to public health — same mission, different path'],scores:[2,2],result:'Both roads lead to the same destination. Medicine is not one job. It is thousands of ways to heal.'},
+      {year:'2033',choice:'',options:[],scores:[],result:'You are 25. Your research just helped develop a treatment protocol specifically validated for Black and Latino patients. Your grandmother\'s doctor uses it. You call her that night.'}
+    ]
+  },
+  engineering:{
+    name:'Maya',grade:'8th',year:2032,job:'Aerospace Engineer at a space startup',
+    steps:[
+      {year:'8th Grade',choice:'Your school gets a 3D printer. Nobody knows how to use it. Do you figure it out?',options:['Yes — I teach myself and then teach everyone else','No — I wait for someone to show me'],scores:[2,0],result:'You print a replacement part for a broken school projector. The principal is so impressed she lets you keep the printer in your classroom. That printer becomes the school\'s first makerspace.'},
+      {year:'9th Grade',choice:'A FIRST Robotics team starts at your school. It meets at 6am.',options:['You join — 6am is worth it','You pass — sleep matters'],scores:[2,1],result:'At 6am you meet five other kids who think exactly like you. You win regionals. More importantly you learn that engineering is always a team sport.'},
+      {year:'High School',choice:'You get a scholarship to a summer aerospace program in Houston. Your family is nervous about you leaving.',options:['You go — you promise to call every night','You stay — your family needs you'],scores:[2,2],result:'The decision is yours. What matters is that you made it with intention, not fear.'},
+      {year:'College',choice:'Your engineering program is 80% male. One professor dismisses your idea in front of the class.',options:['You document it, report it, and keep going','You transfer to a more supportive program'],scores:[2,2],result:'Both responses are valid. Norma Merrick Sklarek faced worse and designed airports. You will build things that outlast anyone who doubted you.'},
+      {year:'2032',choice:'',options:[],scores:[],result:'You are 26. You just led the structural analysis for a spacecraft that will carry the first majority-Black crew to the International Space Station. Mae Jemison sends you a message. You screenshot it and send it to your mom.'}
+    ]
+  },
+  data:{
+    name:'Chris',grade:'7th',year:2031,job:'Sports Analytics Director for an NBA franchise',
+    steps:[
+      {year:'7th Grade',choice:'You notice your favorite team keeps making the same mistake in the 4th quarter. You start tracking it in a spreadsheet.',options:['You keep going — you build 3 more spreadsheets','You show your friends — they think you\'re obsessed'],scores:[2,1],result:'Your spreadsheet shows the team turns the ball over 40% more often when they are down by 6 or more. You tweet it at the team. A scout retweets it. You are 13 years old.'},
+      {year:'8th Grade',choice:'Your math teacher teaches statistics. Most students find it boring.',options:['You are obsessed — you see it everywhere','You get through it — it\'s fine'],scores:[2,1],result:'You realize statistics is just pattern recognition with math attached. You start applying it to everything — your school lunch lines, your neighborhood bus schedules, your basketball game.'},
+      {year:'High School',choice:'You can take AP Statistics or AP Computer Science. You can only pick one.',options:['Statistics — I want to understand data','Computer Science — I want to build things with data'],scores:[2,2],result:'A data scientist needs both. You take one now and teach yourself the other online for free. Khan Academy and YouTube become your second classroom.'},
+      {year:'College',choice:'A professor asks you to assist with real NBA data research. It is unpaid.',options:['You do it — real data is priceless','You negotiate for course credit instead'],scores:[2,2],result:'Both answers show professional maturity. You are already thinking like someone who knows their work has value.'},
+      {year:'2031',choice:'',options:[],scores:[],result:'You are 24. You just presented your team\'s playoff strategy to the head coach using a model you built from scratch. Katherine Johnson calculated trajectories for astronauts. You calculate trajectories for championships. The math is not that different.'}
+    ]
+  },
+  energy:{
+    name:'River',grade:'6th',year:2033,job:'Clean Energy Engineer designing solar infrastructure',
+    steps:[
+      {year:'6th Grade',choice:'You notice your neighborhood loses power more often than neighborhoods across town. You ask why.',options:['You research it — you find out about infrastructure inequality','You accept it — that\'s just how it is'],scores:[2,0],result:'You discover that older, lower-income neighborhoods often have aging electrical infrastructure that gets repaired last. That is not an accident. It is a policy choice. You write a letter to your city councilperson. They write back.'},
+      {year:'7th Grade',choice:'Your school does a science fair. You want to build a small solar panel.',options:['You build it — it costs $40 and three weekends','You choose a simpler project'],scores:[2,1],result:'Your solar panel powers a small LED lamp for 6 hours. You present it to the class. A teacher films it and posts it online. It gets 12,000 views. Lonnie Johnson started with a water gun.'},
+      {year:'High School',choice:'You get accepted to an environmental engineering program and a pre-law program focused on environmental justice.',options:['Engineering — I want to build the solutions','Law — I want to change the policies'],scores:[2,2],result:'The most powerful people in clean energy know both. Pick one now and learn the other your whole life.'},
+      {year:'College',choice:'A clean energy startup offers you an internship in rural Oklahoma. The pay is good but it is far from home.',options:['You take it — rural communities need this work too','You find an internship closer to home'],scores:[2,2],result:'Oklahoma has more wind energy potential than almost any state in the country. The work you do here matters everywhere.'},
+      {year:'2033',choice:'',options:[],scores:[],result:'You are 25. The solar microgrids you helped design now power 3 neighborhoods in Northeast OKC — including the one you grew up in. Your grandmother\'s house has not lost power in two years.'}
+    ]
+  },
+  creative:{
+    name:'Sage',grade:'7th',year:2032,job:'Creative Director at a major entertainment company',
+    steps:[
+      {year:'7th Grade',choice:'You make beats on your phone using a free app. Your friends say they are good.',options:['You keep going — you start uploading them online','You stay private — it feels too personal to share'],scores:[2,1],result:'You upload three beats. Two people download them. Then 200. Then a small YouTuber uses one in a video that gets 4 million views. Your name is in the credits. You are 13.'},
+      {year:'8th Grade',choice:'You want to understand how the music you make actually works — the science of sound.',options:['You take physics seriously — you see it in everything','You focus on the creative side — science feels separate'],scores:[2,1],result:'The engineers who designed the speakers that play your music used fluid dynamics, materials science, and electrical engineering. Art and science are not opposites. They are the same conversation.'},
+      {year:'High School',choice:'A digital arts program accepts you. It is competitive and rigorous.',options:['You go all in — this is your path','You hedge — you keep it as a hobby and focus on something more practical'],scores:[2,1],result:'Virgil Abloh studied architecture first. The most creative people in the world have technical foundations. Your creativity gets stronger when it has structure to push against.'},
+      {year:'College',choice:'You get a chance to score music for a short film about a family in your neighborhood.',options:['You do it for free — the story matters','You negotiate payment — your work has value'],scores:[2,2],result:'Both answers are right depending on the situation. Learning when to give your work away and when to protect it is one of the most important skills in a creative career.'},
+      {year:'2032',choice:'',options:[],scores:[],result:'You are 24. You just finished the score for a feature film about a girl from Northeast OKC who becomes an astronaut. The director is from your neighborhood. The actress is from your neighborhood. You recorded part of it in your old middle school\'s music room.'}
+    ]
+  }
+};
+
+
+const BUDGET_SCENARIOS=[
+  {
+    id:0,
+    title:'First Paycheck',
+    setup:'You just got your first job at Target — $14/hour, 20 hours a week. After taxes your take-home is $224/week or about $896/month. Your mom asks if you can help with $150 toward groceries.',
+    income:896,
+    items:[
+      {label:'Help mom with groceries',amount:150,type:'need',note:'Family comes first. This is also building trust and relationship capital.'},
+      {label:'Phone bill',amount:45,type:'need',note:'You need this for work and communication.'},
+      {label:'Bus pass',amount:65,type:'need',note:'How you get to work.'},
+      {label:'Savings — emergency fund',amount:90,type:'save',note:'10% rule. Start small. Stay consistent.'},
+      {label:'New Jordans',amount:180,type:'want',note:'You have been wanting these for months.'},
+      {label:'Streaming subscriptions',amount:35,type:'want',note:'Netflix, Spotify, etc.'},
+      {label:'Food with friends',amount:60,type:'want',note:'Social and important. But is $60 the right number?'}
+    ],
+    challenge:'You have $896. The needs above total $260. What do you do with the rest? Every choice matters.'
+  },
+  {
+    id:1,
+    title:'College Decision',
+    setup:'You got into two schools. Option A costs $8,000/year after scholarships. Option B costs $22,000/year but has your dream program. You will need loans for the difference. You will pay them back starting 6 months after graduation.',
+    income:0,
+    items:[],
+    challenge:'$14,000 in extra loans at 5% interest over 10 years = $148/month extra payment after graduation. If your starting salary is $52,000 that is manageable. If it is $30,000 it is not. What do you choose — and how do you think about this decision?',
+    isDiscussion:true
+  },
+  {
+    id:2,
+    title:'The Credit Trap',
+    setup:'You are 22. You have a $2,000 credit card with 24% interest. You can only pay the minimum ($40/month). How long until it is paid off?',
+    income:0,
+    items:[],
+    challenge:'At minimum payments, it takes 8 years and you pay $1,800 in interest on top of the $2,000 you borrowed. You pay almost double. If you pay $100/month instead? Done in 22 months — and you save over $1,400. The difference between $40 and $100 a month is $720 a year. That is the price of financial literacy.',
+    isDiscussion:true
+  }
+];
+
 const QUIZ_QS=[
   {q:'When you get new tech, you usually…',opts:[{icon:'🔧',text:'Take it apart to see how it works',pts:{engineering:2,tech:1}},{icon:'📖',text:'Read everything about it carefully',pts:{data:2,health:1}},{icon:'🎮',text:'Start using it and figure it out',pts:{tech:2,creative:1}},{icon:'🤝',text:'Share it and explore with friends',pts:{health:1,creative:1}}]},
   {q:'Your school needs a new student space. Your contribution?',opts:[{icon:'🏗️',text:'Design the layout and structure',pts:{engineering:2,creative:1}},{icon:'💻',text:'Build an app for students to vote',pts:{tech:2,data:1}},{icon:'📊',text:'Survey students and analyze results',pts:{data:2}},{icon:'🌿',text:'Make it eco-friendly with solar',pts:{energy:2,engineering:1}}]},
@@ -428,8 +531,9 @@ function showTab(tab){
   document.getElementById('t-name').textContent=student.name.split(' ')[0];
   document.getElementById('t-xp').textContent=student.xp+' XP';
   document.getElementById('app-sub').textContent=student.grade+'th Grade · '+student.school;
-  ['home','pathways','money','think','progress'].forEach(t=>{
-    document.getElementById('bn-'+t).className='bni'+(t===tab?' active':'');
+  ['home','pathways','money','think','progress','storyline'].forEach(t=>{
+    const navEl=document.getElementById('bn-'+t);
+    if(navEl)navEl.className='bni'+(t===tab?' active':'');
   });
   const inner=document.getElementById('app-inner');
   inner.innerHTML='';inner.className='inner fade';
@@ -439,6 +543,7 @@ function showTab(tab){
   else if(tab==='money')renderMoney(inner);
   else if(tab==='think')renderThink(inner);
   else if(tab==='progress')renderProgress(inner);
+  else if(tab==='storyline')renderStoryline(inner);
 }
 
 function renderHome(el){
@@ -550,7 +655,7 @@ function renderHome(el){
         '</div><span style="color:var(--gold)">&#8594;</span>'+
       '</div>'+
     '</div>'+
-    '<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
+    '<div class="card clickable mb8" id="h-storyline" style="border-left:3px solid var(--violet)">'+'<div class="flex aic jb">'+'<div class="flex aic g8"><span style="font-size:20px">&#128218;</span>'+'<div><div class="h3" style="margin-bottom:2px">My Career Story</div>'+'<div style="font-size:12px;color:var(--muted)">Follow a story through choices to your future</div></div>'+'</div><span style="color:var(--gold)">&#8594;</span>'+'</div>'+'</div>'+'<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
       '<div class="flex aic jb">'+
         '<div class="flex aic g8"><span style="font-size:20px">⭐</span>'+
           '<div><div class="h3" style="margin-bottom:2px">My Progress</div>'+
@@ -566,6 +671,7 @@ function renderHome(el){
   document.getElementById('h-money').onclick=()=>showTab('money');
   document.getElementById('h-think').onclick=()=>showTab('think');
   document.getElementById('h-progress').onclick=()=>showTab('progress');
+  const hStory=document.getElementById('h-storyline');if(hStory)hStory.onclick=()=>showTab('storyline');
 }
 
 function renderPathways(el){
@@ -759,33 +865,66 @@ async function loadCareerAI(cid){
 function renderMoney(el){
   const mod=answers.moneyMod||0;
   const m=LIFE_MODULES[mod];
-  const prevBtn=mod>0?`<button class="btn btn-out" onclick="answers.moneyMod=${mod-1};showTab('money')">&larr; Previous</button>`:'';
+  const scenario=BUDGET_SCENARIOS[0];
+
+  const prevBtn=mod>0?'<button class="btn btn-out" onclick="answers.moneyMod='+(mod-1)+';showTab(\'money\')">&larr; Previous</button>':'';
   const nextBtn=mod<LIFE_MODULES.length-1
-    ?`<button class="btn btn-gold" style="flex:1" onclick="answers.moneyMod=${mod+1};awardXP(40);showTab('money')">Next Module &rarr; <span style="font-size:11px;opacity:.7">+40 XP</span></button>`
-    :`<button class="btn btn-teal" style="flex:1" onclick="awardXP(60);showTab('think')">Complete! Explore Big Questions &rarr; <span style="font-size:11px;opacity:.7">+60 XP</span></button>`;
-  const budgetTool=mod===1?`
-    <div class="card mb12">
-      <div class="h2 mb8">&#129518; Try the 50/30/20 Rule</div>
-      <div class="field mt8"><label class="lbl">Monthly Take-Home Pay</label><input type="number" class="inp" id="income-inp" value="2000" oninput="updateBudget()"></div>
-      <div id="budget-split"></div>
-    </div>`:'';
-  const progress=LIFE_MODULES.map((_,i)=>`<div style="flex:1;height:4px;border-radius:2px;background:${i<=mod?'var(--gold)':'var(--border)'}"></div>`).join('');
-  el.innerHTML=`
-    <div class="h1 mb4">Life &amp; <span class="a">Money Skills</span></div>
-    <p class="lead">Real financial knowledge woven with ethics and history. Knowing how money works is how you protect your future.</p>
-    <div class="flex aic g8 mb16">${progress}</div>
-    <div class="mb8"><span class="tag tg">Module ${mod+1} of ${LIFE_MODULES.length}</span><span class="tag ta">${m.tag}</span></div>
-    <div class="card mb12" style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(251,146,60,.07));border-color:rgba(245,200,66,.2);text-align:center;padding:22px">
-      <div style="font-size:44px;margin-bottom:8px">${m.icon}</div>
-      <div class="h2" style="margin-bottom:8px">${m.title}</div>
-      <p style="font-size:14px;color:var(--muted);line-height:1.65;text-align:left">${m.content}</p>
-    </div>
-    <div class="lens-card lens-eth mb12"><div class="lens-title">&#9878;&#65039; Ethics Lens</div><div class="lens-body">${m.lens.eth}</div></div>
-    <div class="lens-card lens-hum mb12"><div class="lens-title">&#128220; Humanities Connection</div><div class="lens-body">${m.lens.hum}</div></div>
-    ${budgetTool}
-    <div class="flex g8 mt4">${prevBtn}${nextBtn}</div>
-    <div style="height:20px"></div>`;
-  if(mod===1)setTimeout(updateBudget,100);
+    ?'<button class="btn btn-gold" style="flex:1" onclick="answers.moneyMod='+(mod+1)+';awardXP(40);showTab(\'money\')">Next Module &rarr; <span style="font-size:11px;opacity:.7">+40 XP</span></button>'
+    :'<button class="btn btn-teal" style="flex:1" onclick="awardXP(60);showTab(\'think\')">Complete! Explore Big Questions &rarr; <span style="font-size:11px;opacity:.7">+60 XP</span></button>';
+
+  const progressBars=LIFE_MODULES.map((_,i)=>'<div style="flex:1;height:4px;border-radius:2px;background:'+(i<=mod?'var(--gold)':'var(--border)')+'"></div>').join('');
+
+  let budgetHtml='';
+  if(mod===1){
+    const itemRows=scenario.items.map(function(item){
+      const typeColor=item.type==='need'?'var(--coral)':item.type==='save'?'var(--green)':'var(--muted)';
+      return '<div style="padding:12px 0;border-bottom:1px solid var(--border)">'+
+        '<div class="flex jb aic mb4">'+
+          '<div>'+
+            '<div style="font-weight:600;font-size:13px">'+item.label+'</div>'+
+            '<div style="font-size:11px;color:var(--muted)">'+item.note+'</div>'+
+          '</div>'+
+          '<div class="flex aic g8">'+
+            '<span style="font-size:10px;font-weight:700;color:'+typeColor+'">'+item.type.toUpperCase()+'</span>'+
+            '<span style="font-family:DM Mono,monospace;font-weight:700;font-size:14px">$'+item.amount+'</span>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+
+    budgetHtml=
+      '<div class="card mb12">'+
+        '<div class="h2 mb4">&#129518; Budget Challenge</div>'+
+        '<div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.6">'+scenario.setup+'</div>'+
+        '<div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:12px;padding:10px 14px;background:var(--gold-d);border-radius:8px;border-left:3px solid var(--gold)">'+
+          scenario.challenge+
+        '</div>'+
+        '<div class="field">'+
+          '<label class="lbl">Adjust Your Monthly Income</label>'+
+          '<input type="number" class="inp" id="income-inp" value="896" oninput="updateBudgetChallenge()">'+
+        '</div>'+
+        '<div>'+itemRows+'</div>'+
+        '<div id="budget-result" style="margin-top:14px"></div>'+
+      '</div>';
+  }
+
+  el.innerHTML=
+    '<div class="h1 mb4">Life &amp; <span class="a">Money Skills</span></div>'+
+    '<p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.65">Real financial knowledge woven with ethics and history. Knowing how money works is how you protect your future.</p>'+
+    '<div class="flex aic g8 mb16">'+progressBars+'</div>'+
+    '<div class="mb8"><span class="tag tg">Module '+(mod+1)+' of '+LIFE_MODULES.length+'</span><span class="tag ta">'+m.tag+'</span></div>'+
+    '<div class="card mb12" style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(251,146,60,.07));border-color:rgba(245,200,66,.2);text-align:center;padding:22px">'+
+      '<div style="font-size:44px;margin-bottom:8px">'+m.icon+'</div>'+
+      '<div class="h2" style="margin-bottom:8px">'+m.title+'</div>'+
+      '<p style="font-size:14px;color:var(--muted);line-height:1.65;text-align:left">'+m.content+'</p>'+
+    '</div>'+
+    '<div class="lens-card lens-eth mb12"><div class="lens-title">&#9878;&#65039; Ethics Lens</div><div class="lens-body">'+m.lens.eth+'</div></div>'+
+    '<div class="lens-card lens-hum mb12"><div class="lens-title">&#128220; Humanities Connection</div><div class="lens-body">'+m.lens.hum+'</div></div>'+
+    budgetHtml+
+    '<div class="flex g8 mt4">'+prevBtn+nextBtn+'</div>'+
+    '<div style="height:20px"></div>';
+
+  if(mod===1) setTimeout(updateBudgetChallenge,100);
 }
 
 function updateBudget(){
@@ -892,6 +1031,135 @@ function clusterKey(){
   const m={'Tech & Innovation':'tech','Health Sciences':'health','Engineering & Design':'engineering','Data & Analytics':'data','Energy & Environment':'energy','Creative Technology':'creative'};
   return m[student?.cluster]||null;
 }
+
+function renderStoryline(el){
+  const cid=clusterKey();
+  if(!cid){showTab('pathways');return;}
+  const story=STORYLINES[cid];
+  if(!story){showTab('pathways');return;}
+
+  if(!answers.storyStep) answers.storyStep=0;
+  if(!answers.storyChoices) answers.storyChoices=[];
+
+  const step=answers.storyStep;
+  const isIntro=step===0 && !answers.storyStarted;
+  const isDone=step>=story.steps.length-1 && answers.storyChoices.length>=story.steps.length-1;
+
+  // Intro screen
+  if(isIntro){
+    el.innerHTML=
+      '<div class="h1 mb4">Your <span class="a">Career Story</span></div>'+
+      '<p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6">'+
+        'This is a story about someone like you. The choices they make get them to a career in '+
+        '<strong style="color:var(--gold)">'+CLUSTERS[cid].name+'</strong>. '+
+        'Some choices are obvious. Some are hard. None of them are wrong.'+
+      '</p>'+
+      '<div style="background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center">'+
+        '<div style="font-size:48px;margin-bottom:12px">'+CLUSTERS[cid].icon+'</div>'+
+        '<div style="font-family:Bricolage Grotesque,sans-serif;font-size:22px;font-weight:800;margin-bottom:6px">Meet '+story.name+'</div>'+
+        '<div style="font-size:14px;color:var(--muted);margin-bottom:4px">Currently in '+story.grade+' — just like some of you</div>'+
+        '<div style="font-size:14px;color:var(--teal);font-weight:600">Destination: '+story.job+'</div>'+
+        '<div style="font-size:13px;color:var(--muted);margin-top:4px">Year: '+story.year+'</div>'+
+      '</div>'+
+      '<button class="btn btn-gold btn-block" onclick="answers.storyStarted=true;showTab(\'storyline\')">Start the Story &#8594;</button>';
+    return;
+  }
+
+  // Done screen
+  if(isDone || step>=story.steps.length){
+    const finalStep=story.steps[story.steps.length-1];
+    el.innerHTML=
+      '<div class="h1 mb4"><span class="a">The End.</span></div>'+
+      '<div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(45,212,191,.08));border:1px solid rgba(245,200,66,.25);border-radius:16px;padding:24px;margin-bottom:16px">'+
+        '<div style="font-size:36px;margin-bottom:12px">'+CLUSTERS[cid].icon+'</div>'+
+        '<div style="font-size:15px;line-height:1.75;color:var(--text)">'+finalStep.result+'</div>'+
+      '</div>'+
+      '<div class="card mb12">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Your Choices</div>'+
+        story.steps.slice(0,-1).map((s,i)=>{
+          const choice=answers.storyChoices[i];
+          return '<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">'+
+            '<span style="color:var(--teal);font-weight:700;min-width:90px;font-size:12px">'+s.year+'</span>'+
+            '<span style="font-size:13px;color:var(--text)">'+s.options[choice||0]+'</span>'+
+          '</div>';
+        }).join('')+
+      '</div>'+
+      '<div class="alert at mb12">Every path in this story leads somewhere real. What matters is that you keep choosing.</div>'+
+      '<button class="btn btn-gold btn-block" onclick="showTab(\'pathways\')">Back to My Pathway &#8594;</button>'+
+      '<button class="btn btn-out btn-block" style="margin-top:8px" onclick="answers.storyStep=0;answers.storyChoices=[];answers.storyStarted=false;showTab(\'storyline\')">Play Again</button>';
+    awardXP(80);
+    return;
+  }
+
+  const current=story.steps[step];
+  const progress=Math.round((step/( story.steps.length-1))*100);
+  const showResult=answers['storyResult_'+step];
+
+  if(showResult){
+    // Show result of their choice then advance
+    el.innerHTML=
+      '<div class="mb8"><div style="height:6px;background:var(--surf2);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px"></div></div></div>'+
+      '<div style="background:var(--surf2);border-radius:12px;padding:6px 12px;display:inline-block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:14px">'+current.year+'</div>'+
+      '<div style="background:var(--surf);border:1px solid rgba(45,212,191,.3);border-radius:16px;padding:22px;margin-bottom:16px">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px">What happened next...</div>'+
+        '<div style="font-size:15px;line-height:1.7;color:var(--text)">'+current.result+'</div>'+
+      '</div>'+
+      '<button class="btn btn-gold btn-block" onclick="answers.storyStep='+(step+1)+';delete answers[\'storyResult_'+step+'\'];showTab(\'storyline\')">Continue &#8594;</button>';
+    return;
+  }
+
+  el.innerHTML=
+    '<div class="mb12">'+
+      '<div class="flex jb aic mb6">'+
+        '<div style="font-size:12px;color:var(--muted);font-weight:600">'+current.year+' — '+story.name+'\'s story</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Chapter '+(step+1)+' of '+(story.steps.length-1)+'</div>'+
+      '</div>'+
+      '<div style="height:6px;background:var(--surf2);border-radius:3px;overflow:hidden">'+
+        '<div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px">'+
+      '<div style="font-size:17px;font-weight:700;line-height:1.5;margin-bottom:20px;color:var(--text)">'+current.choice+'</div>'+
+      current.options.map((opt,i)=>
+        '<div id="story-opt-'+i+'" onclick="pickStory('+step+','+i+')" style="padding:16px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surf2);cursor:pointer;margin-bottom:10px;transition:all .2s;font-size:14px;font-weight:500;line-height:1.5">'+
+          '<span style="color:var(--gold);font-weight:800;margin-right:8px">'+(i===0?'A':'B')+'.</span>'+opt+
+        '</div>'
+      ).join('')+
+    '</div>';
+}
+
+function pickStory(step,choice){
+  if(!answers.storyChoices) answers.storyChoices=[];
+  answers.storyChoices[step]=choice;
+  answers['storyResult_'+step]=true;
+  // Animate selection
+  const el=document.getElementById('story-opt-'+choice);
+  if(el){el.style.borderColor='var(--gold)';el.style.background='var(--gold-d)';}
+  setTimeout(()=>showTab('storyline'),400);
+}
+
+
+function updateBudgetChallenge(){
+  const income=parseFloat(document.getElementById('income-inp')?.value)||896;
+  const scenario=BUDGET_SCENARIOS[0];
+  const totalFixed=scenario.items.reduce((s,i)=>s+i.amount,0);
+  const remaining=income-totalFixed;
+  const el=document.getElementById('budget-result');
+  if(!el)return;
+  const color=remaining>=0?'var(--green)':'var(--coral)';
+  const msg=remaining>=0
+    ?'You have $'+remaining.toFixed(0)+' left over. What would you do with it?'
+    :'You are $'+Math.abs(remaining).toFixed(0)+' short. Something has to give. What do you cut?';
+  el.innerHTML=
+    '<div style="padding:14px;border-radius:10px;background:'+(remaining>=0?'var(--green-d)':'var(--coral-d)')+';border:1px solid '+(remaining>=0?'rgba(74,222,128,.3)':'rgba(251,113,133,.3)')+'">'+
+      '<div style="font-weight:700;font-size:16px;color:'+color+';margin-bottom:4px">'+
+        (remaining>=0?'&#10003; You made it work':'&#9888; Over budget')+
+      '</div>'+
+      '<div style="font-size:13px;line-height:1.6">'+msg+'</div>'+
+      (remaining>=0&&remaining>=90?'<div style="font-size:12px;color:var(--green);margin-top:8px;font-weight:600">&#128200; If you invest $'+Math.min(remaining,200).toFixed(0)+'/month at 8% return — that becomes $'+(Math.min(remaining,200)*12*5.87).toFixed(0)+' in 5 years.</div>':'')+
+    '</div>';
+}
+
 function awardXP(n){
   if(!n||!student)return;student.xp+=n;
   const xp=document.getElementById('t-xp');if(xp)xp.textContent=student.xp+' XP';
