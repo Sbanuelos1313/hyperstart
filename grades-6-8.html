@@ -1180,4 +1180,68 @@ function awardXP(n){
 init(); loginStudent("zara");
 </script>
 </body>
-</html>
+</html
+  // Add module cards to innerHTML
+  document.getElementById('app-inner').innerHTML +=
+    '<div class="stat-row" style="margin-bottom:14px">'+
+      '<div class="stat"><div class="stat-n gold">'+student.xp+'</div><div class="stat-l">XP Earned</div></div>'+
+      '<div class="stat"><div class="stat-n" style="color:var(--coral);font-size:24px">'+(streak>0?'🔥'+streak:'—')+'</div><div class="stat-l">Day Streak</div></div>'+
+      '<div class="stat"><div class="stat-n teal">'+student.grade+'th</div><div class="stat-l">Grade</div></div>'+
+    '</div>'+
+    (cl?
+      '<div class="card mb12" style="border-color:rgba(245,200,66,.2);background:var(--gold-d)">'+
+        '<div class="flex aic jb">'+
+          '<div class="flex aic g8">'+
+            '<span style="font-size:30px">'+cl.icon+'</span>'+
+            '<div>'+
+              '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Your STEM/STEAM Match</div>'+
+              '<div style="font-weight:700;font-size:16px;color:var(--gold)">'+cl.name+'</div>'+
+            '</div>'+
+          '</div>'+
+          '<button onclick="showTab(\'pathways\')" class="btn btn-out btn-sm">Explore &#8594;</button>'+
+        '</div>'+
+      '</div>':'')+
+    '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">&#128218; ALL LEARNING MODULES</div>'+
+    '<div class="card clickable mb8" id="h-pathways" style="border-left:3px solid var(--teal)">'+
+      '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#128640;</span>'+
+        '<div><div class="h3" style="margin-bottom:2px">STEM/STEAM Pathways</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Career exploration + ethics + humanities</div></div>'+
+      '</div>'+
+      '<div class="flex aic g8">'+(student.cluster?'<span class="tag tt" style="font-size:10px">Matched</span>':'')+
+        '<span style="color:var(--gold)">&#8594;</span></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card clickable mb8" id="h-money" style="border-left:3px solid var(--gold)">'+
+      '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#128176;</span>'+
+        '<div><div class="h3" style="margin-bottom:2px">Life &amp; Money Skills</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Module '+(mod+1)+' of 5'+(mod>0?' &middot; In progress':'')+'</div></div>'+
+      '</div>'+
+      '<div class="flex aic g8">'+
+        (mod>0?'<div style="height:6px;width:60px;background:var(--surf2);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+Math.round((mod/5)*100)+'%;background:var(--gold);border-radius:3px"></div></div>':'')+
+        '<span style="color:var(--gold)">&#8594;</span>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card clickable mb8" id="h-think" style="border-left:3px solid var(--violet)">'+
+      '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#129504;</span>'+
+        '<div><div class="h3" style="margin-bottom:2px">Big Questions</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Philosophy, ethics &amp; purpose</div></div>'+
+      '</div><span style="color:var(--gold)">&#8594;</span>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card clickable mb8" id="h-storyline" style="border-left:3px solid var(--violet)">'+
+      '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#128218;</span>'+
+        '<div><div class="h3" style="margin-bottom:2px">My Career Story</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Follow a story through choices to your future</div></div>'+
+      '</div><span style="color:var(--gold)">&#8594;</span>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
+      '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#11088;</span>'+
+        '<div><div class="h3" style="margin-bottom:2px">My Progress</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Badges, reflections &amp; post-survey</div></div>'+
+      '</div><span style="color:var(--gold)">&#8594;</span>'+
+      '</div>'+
+    '</div>'+
+    '<div style="height:24px"></div>';
+
+>
