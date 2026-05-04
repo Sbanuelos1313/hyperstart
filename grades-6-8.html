@@ -456,7 +456,7 @@ function renderHome(el){
 
   // Next action
   const actions={
-    quiz:  {icon:'🎯',label:'Take the Interest Quiz',sub:'Find your STEM/STEAM match in 4 questions',tab:'pathways',color:'var(--teal)',bg:'rgba(45,212,191,0.1)',border:'rgba(45,212,191,0.3)'},
+    quiz:  {icon:'🎯',label:'Play Career Sparks',sub:'Tap what sparks you — discover your path',tab:'pathways',color:'var(--teal)',bg:'rgba(45,212,191,0.1)',border:'rgba(45,212,191,0.3)'},
     money: {icon:'💰',label:'Start Life & Money Skills',sub:'Module 1: Understanding Income',tab:'money',color:'var(--gold)',bg:'rgba(245,200,66,0.1)',border:'rgba(245,200,66,0.3)'},
     think: {icon:'🧠',label:'Answer Today Big Question',sub:'Philosophy, ethics and your purpose',tab:'think',color:'var(--violet)',bg:'rgba(167,139,250,0.1)',border:'rgba(167,139,250,0.3)'},
     prog:  {icon:'⭐',label:'Check Your Progress',sub:'See what you have built so far',tab:'progress',color:'var(--green)',bg:'rgba(74,222,128,0.1)',border:'rgba(74,222,128,0.3)'}
@@ -605,26 +605,134 @@ function renderPathways(el){
 }
 
 function renderQuiz(el){
-  if(answers.quizDone){student.cluster=answers.clusterName;awardXP(75);renderPathways(el);return;}
-  if(quizState.q>=QUIZ_QS.length){
-    const best=Object.entries(quizState.scores).sort((a,b)=>b[1]-a[1])[0];
+  if(!answers.sparkCollected) answers.sparkCollected=[];
+  if(!answers.sparkScores) answers.sparkScores={tech:0,health:0,engineering:0,data:0,energy:0,creative:0};
+  if(answers.sparkPhase===undefined) answers.sparkPhase='collect'; // 'collect' or 'done'
+
+  const CARDS=[
+    {id:0,emoji:'🎵',title:'Music & Sound Engineering',fact:'The tech that makes music feel like it\'s inside your chest is physics. Sound engineers shape every beat using digital signal processing.',person:'Dr. Mark Dean',role:'Co-inventor of the IBM PC — holds 3 of IBM\'s original 9 patents',img:'👨🏾‍💻',cluster:'creative'},
+    {id:1,emoji:'🏗️',title:'Architecture & City Design',fact:'Norma Merrick Sklarek designed Terminal One at LAX — one of the busiest airports on Earth. She was the first Black woman licensed as an architect in the US.',person:'Norma Merrick Sklarek',role:'First Black female licensed architect in America',img:'👩🏾‍💼',cluster:'engineering'},
+    {id:2,emoji:'🧬',title:'Medical Invention',fact:'Dr. Patricia Bath invented a laser device that restored sight to people blind for over 30 years. She was the first Black woman to receive a medical patent.',person:'Dr. Patricia Bath',role:'Ophthalmologist & inventor — restored sight to the blind',img:'👩🏾‍⚕️',cluster:'health'},
+    {id:3,emoji:'📊',title:'Sports Analytics',fact:'ESPN has a full team of data scientists who predict plays in real time using player tracking, weather data, and 50 years of game history.',person:'Katherine Johnson',role:'NASA mathematician — her equations guided Apollo 11 to the moon',img:'👩🏾‍🚀',cluster:'data'},
+    {id:4,emoji:'⚡',title:'Clean Energy Invention',fact:'Lonnie Johnson invented the Super Soaker — then used the same fluid dynamics principles to design a clean energy system that could power entire cities.',person:'Lonnie G. Johnson',role:'Engineer & inventor — Super Soaker and clean energy pioneer',img:'👨🏾‍🔬',cluster:'energy'},
+    {id:5,emoji:'🎮',title:'Video Game & Film VFX',fact:'The VFX team behind Black Panther used physics simulations and computer graphics to make Wakanda feel real. Game design, film, and engineering merged into one.',person:'Maryam Mirzakhani',role:'First woman to win the Fields Medal — her math powers 3D graphics',img:'👩🏽‍🎨',cluster:'creative'},
+    {id:6,emoji:'🏥',title:'Public Health',fact:'During COVID-19, some neighborhoods were hit 3x harder — not because of biology, but because of gaps in healthcare access. Public health professionals fight to close that gap.',person:'Dr. Alexa Canady',role:'First Black female neurosurgeon in the United States',img:'👩🏾‍⚕️',cluster:'health'},
+    {id:7,emoji:'🌍',title:'Environmental Justice',fact:'A teenager in Oklahoma mapped her neighborhood and discovered 3x more asthma cases near the highway. She used data to prove it — and got the city to act.',person:'Rachel Carson',role:'Marine biologist whose book Silent Spring launched the environmental movement',img:'👩🏼‍🔬',cluster:'energy'},
+    {id:8,emoji:'🚀',title:'Aerospace Engineering',fact:'Mae Jemison was an engineer AND a physician before becoming the first Black woman in space. She always assumed she would go to space. She was right.',person:'Mae C. Jemison',role:'Engineer, physician & first Black woman in space',img:'👩🏾‍🚀',cluster:'engineering'},
+    {id:9,emoji:'💻',title:'Programming & Code',fact:'Grace Hopper invented the first computer compiler — the program that translates human language into machine code. Every app on your phone exists because of her.',person:'Grace Hopper',role:'Computer scientist — invented the compiler that makes all coding possible',img:'👩🏼‍💻',cluster:'tech'},
+    {id:10,emoji:'🎨',title:'Creative Technology',fact:'Virgil Abloh studied architecture, then transformed fashion, furniture, and art. He proved that knowing how structures work makes creative work more powerful.',person:'Virgil Abloh',role:'Architect, designer & creative director — Off-White & Louis Vuitton',img:'👨🏾‍🎨',cluster:'creative'},
+    {id:11,emoji:'📱',title:'AI & Ethics',fact:'The algorithm that decides what you see on social media was written by engineers. Those choices affect what millions of people believe. Who should write that code?',person:'Timnit Gebru',role:'AI researcher fighting bias in artificial intelligence systems',img:'👩🏾‍💻',cluster:'tech'},
+    {id:12,emoji:'🌱',title:'Biotech & Agriculture',fact:'Scientists are engineering crops that grow with less water and more nutrition — crucial as the climate changes. Biotech is feeding the future.',person:'George Washington Carver',role:'Agricultural scientist who discovered 300+ uses for the peanut',img:'👨🏾‍🌾',cluster:'health'},
+    {id:13,emoji:'🔭',title:'Astronomy & Space Science',fact:'NASA\'s James Webb Space Telescope can see galaxies from 13 billion years ago. The team that built it included engineers, mathematicians, and artists.',person:'Dr. Neil deGrasse Tyson',role:'Astrophysicist & science communicator — made the cosmos accessible to everyone',img:'👨🏾‍🔭',cluster:'data'},
+    {id:14,emoji:'🤖',title:'Robotics',fact:'Robots are now performing surgery with more precision than human hands. The engineers who design them need to understand biology as much as mechanics.',person:'Ayanna Howard',role:'Roboticist & dean — designs robots that help children with disabilities',img:'👩🏾‍💻',cluster:'engineering'},
+    {id:15,emoji:'🎸',title:'Music Technology',fact:'The electric guitar, auto-tune, and streaming algorithms all started as engineering problems. Music technology is one of the fastest-growing creative tech fields.',person:'Les Paul',role:'Guitarist & inventor who pioneered multi-track recording and the solid-body electric guitar',img:'👨🏼‍🎸',cluster:'creative'},
+    {id:16,emoji:'💊',title:'Pharmaceutical Science',fact:'Scientists developed a COVID-19 vaccine in less than a year — something that used to take a decade. Dr. Kizzmekia Corbett led the team.',person:'Dr. Kizzmekia Corbett',role:'Viral immunologist — lead scientist on the Moderna COVID-19 vaccine',img:'👩🏾‍🔬',cluster:'health'},
+    {id:17,emoji:'🌊',title:'Ocean & Climate Science',fact:'70% of the Earth is ocean and we have mapped less of it than we have mapped Mars. Ocean scientists are discovering new species every year.',person:'Sylvia Earle',role:'Marine biologist & oceanographer — has spent more than 7,000 hours underwater',img:'👩🏼‍🔬',cluster:'energy'},
+    {id:18,emoji:'💡',title:'Electrical Engineering',fact:'Lewis Howard Latimer improved the light bulb so it could last long enough to actually be useful. Without him, Edison\'s invention would have stayed a novelty.',person:'Lewis Howard Latimer',role:'Electrical engineer — made the light bulb practical for everyday use',img:'👨🏾‍🔧',cluster:'tech'},
+    {id:19,emoji:'📐',title:'Civil Engineering',fact:'Robert Smalls was enslaved, became a ship captain, escaped to freedom, and later served in Congress — all because he understood engineering and navigation.',person:'Robert Smalls',role:'Self-taught engineer, sea captain & US Congressman',img:'👨🏾‍✈️',cluster:'engineering'}
+  ];
+
+  if(answers.sparkPhase==='done'){
+    // Calculate results
+    const scores=answers.sparkScores;
+    const best=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
     const nm={tech:'Tech & Innovation',health:'Health Sciences',engineering:'Engineering & Design',data:'Data & Analytics',energy:'Energy & Environment',creative:'Creative Technology'};
-    answers.clusterName=nm[best[0]]||'Tech & Innovation';
-    answers.quizDone=true;renderPathways(el);return;
+    answers.clusterName=nm[best[0][0]]||'Tech & Innovation';
+    answers.quizDone=true;
+    student.cluster=answers.clusterName;
+    awardXP(75);
+    renderPathways(el);
+    return;
   }
-  const q=QUIZ_QS[quizState.q];
-  el.innerHTML=`<div class="mb8"><span class="tag tt">Question ${quizState.q+1} of ${QUIZ_QS.length}</span></div><div class="h1 mb16">${q.q}</div><div class="tile-grid" id="qopts"></div>`;
-  const grid=document.getElementById('qopts');
-  q.opts.forEach(opt=>{
-    const t=document.createElement('div');t.className='tile';
-    t.innerHTML=`<div class="ti">${opt.icon}</div><div class="tn">${opt.text}</div>`;
-    t.onclick=()=>{
-      grid.querySelectorAll('.tile').forEach(x=>x.classList.remove('sel'));t.classList.add('sel');
-      Object.entries(opt.pts).forEach(([k,v])=>quizState.scores[k]=(quizState.scores[k]||0)+v);
-      setTimeout(()=>{quizState.q++;showTab('pathways');},320);
+
+  const collected=answers.sparkCollected;
+  const remaining=CARDS.filter(c=>!collected.includes(c.id));
+  const collectedCards=CARDS.filter(c=>collected.includes(c.id));
+
+  el.innerHTML=
+    '<div class="h1 mb4"><span class="a">Career Sparks</span> ⚡</div>'+
+    '<p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.6">'+
+      'Tap the cards that spark something in you. Grab as many as you want — there are no wrong answers.'+
+    '</p>'+
+
+    // Progress
+    '<div class="flex jb aic mb12">'+
+      '<div style="font-size:12px;color:var(--muted)">'+collected.length+' of '+CARDS.length+' explored</div>'+
+      (collected.length>=6?
+        '<button id="btn-done" style="background:var(--gold);color:#0a0e1a;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;border:none;cursor:pointer">See My Match &#8594;</button>':
+        '<div style="font-size:12px;color:var(--muted)">Grab at least '+(6-collected.length)+' more</div>'
+      )+
+    '</div>'+
+
+    // Collected tray
+    (collected.length>0?
+      '<div style="margin-bottom:16px">'+
+        '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px">&#10003; Your Collection ('+collected.length+')</div>'+
+        '<div style="display:flex;flex-wrap:wrap;gap:8px" id="collected-tray">'+
+          collectedCards.map(c=>
+            '<div style="padding:7px 12px;border-radius:20px;background:var(--teal-d);border:1px solid rgba(45,212,191,.3);font-size:13px;font-weight:600;color:var(--teal);display:flex;align-items:center;gap:5px">'+
+              c.emoji+' '+c.title+
+            '</div>'
+          ).join('')+
+        '</div>'+
+      '</div>':'')+
+
+    // Card grid
+    '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Tap to collect &#8595;</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="card-grid">'+
+      remaining.map(c=>
+        '<div id="sc-'+c.id+'" style="background:var(--surf);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative" onclick="collectCard('+c.id+')">'+
+          '<div style="height:70px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(45,212,191,0.06),rgba(167,139,250,0.06))">'+
+            '<span style="font-size:40px">'+c.emoji+'</span>'+
+          '</div>'+
+          '<div style="padding:10px 12px">'+
+            '<div style="font-weight:700;font-size:13px;margin-bottom:4px;line-height:1.3">'+c.title+'</div>'+
+            '<div style="font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:8px">'+c.fact.substring(0,70)+'...</div>'+
+            '<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--surf2);border-radius:8px">'+
+              '<span style="font-size:18px">'+c.img+'</span>'+
+              '<div>'+
+                '<div style="font-size:10px;font-weight:700;color:var(--teal)">'+c.person+'</div>'+
+                '<div style="font-size:9px;color:var(--muted)">'+c.role.substring(0,45)+'...</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+          '<div style="position:absolute;top:8px;right:8px;background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--teal)">+ Grab</div>'+
+        '</div>'
+      ).join('')+
+    '</div>'+
+    '<div style="height:24px"></div>';
+
+  // Wire done button
+  const doneBtn=document.getElementById('btn-done');
+  if(doneBtn){
+    doneBtn.onclick=()=>{
+      // Score collected cards
+      answers.sparkScores={tech:0,health:0,engineering:0,data:0,energy:0,creative:0};
+      CARDS.filter(c=>collected.includes(c.id)).forEach(c=>{
+        answers.sparkScores[c.cluster]=(answers.sparkScores[c.cluster]||0)+1;
+      });
+      answers.sparkPhase='done';
+      showTab('pathways');
     };
-    grid.appendChild(t);
-  });
+  }
+}
+
+function collectCard(id){
+  if(!answers.sparkCollected) answers.sparkCollected=[];
+  if(answers.sparkCollected.includes(id)) return;
+
+  // Animate the card
+  const card=document.getElementById('sc-'+id);
+  if(card){
+    card.style.transform='translateY(-12px) scale(1.05)';
+    card.style.borderColor='var(--teal)';
+    card.style.background='var(--teal-d)';
+    card.style.opacity='0';
+    setTimeout(()=>{
+      answers.sparkCollected.push(id);
+      showTab('pathways');
+    },300);
+  }
 }
 
 const AI_PROMPTS={
