@@ -545,6 +545,19 @@ const BUDGET_SCENARIOS=[
   }
 ];
 
+
+const INTEREST_MAP={
+  sports:{label:'Sports',icon:'&#9917;',clusters:['data','engineering'],tip:'Sports analytics, biomechanics engineering, and sports medicine all start here.'},
+  music:{label:'Music',icon:'&#127925;',clusters:['creative','tech'],tip:'Sound engineering, music production software, and digital audio are all STEAM careers.'},
+  art:{label:'Art & Design',icon:'&#127912;',clusters:['creative','engineering'],tip:'Architecture, UX design, and game design blend art with engineering.'},
+  helping:{label:'Helping People',icon:'&#129309;',clusters:['health','data'],tip:'Healthcare, counseling, and public health are among the most impactful careers.'},
+  computers:{label:'Computers',icon:'&#128187;',clusters:['tech','data'],tip:'From app development to AI — the digital world needs builders like you.'},
+  outdoors:{label:'Outdoors',icon:'&#127807;',clusters:['energy','engineering'],tip:'Environmental science, conservation engineering, and clean energy need people who love nature.'},
+  cooking:{label:'Cooking',icon:'&#127859;',clusters:['health','creative'],tip:'Food science, nutrition, culinary technology — food is a STEM field.'},
+  building:{label:'Building Things',icon:'&#128296;',clusters:['engineering','tech'],tip:'Civil, mechanical, and electrical engineering all start with building.'},
+  business:{label:'Business',icon:'&#128188;',clusters:['data','tech'],tip:'Entrepreneurship, business analytics, and fintech combine business with STEM.'},
+  animals:{label:'Animals',icon:'&#128062;',clusters:['health','energy'],tip:'Veterinary science, zoology, and marine biology are all health and science careers.'}
+};
 const QUIZ_QS=[
   {q:'When you get new tech, you usually…',opts:[{icon:'🔧',text:'Take it apart to see how it works',pts:{engineering:2,tech:1}},{icon:'📖',text:'Read everything about it carefully',pts:{data:2,health:1}},{icon:'🎮',text:'Start using it and figure it out',pts:{tech:2,creative:1}},{icon:'🤝',text:'Share it and explore with friends',pts:{health:1,creative:1}}]},
   {q:'Your school needs a new student space. Your contribution?',opts:[{icon:'🏗️',text:'Design the layout and structure',pts:{engineering:2,creative:1}},{icon:'💻',text:'Build an app for students to vote',pts:{tech:2,data:1}},{icon:'📊',text:'Survey students and analyze results',pts:{data:2}},{icon:'🌿',text:'Make it eco-friendly with solar',pts:{energy:2,engineering:1}}]},
@@ -678,6 +691,9 @@ function renderHome(el){
     '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">⚡ Today&#39;s Mission</div>'+
     '<div id="mission-card" style="background:'+na.bg+';border:2px solid '+na.border+';border-radius:16px;padding:22px 20px;margin-bottom:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:16px">'+'<div style="flex:1">'+'<div style="font-family:Bricolage Grotesque,sans-serif;font-size:20px;font-weight:800;color:'+na.color+';margin-bottom:4px">'+na.label+'</div>'+'<div style="font-size:13px;color:var(--muted);margin-bottom:16px">'+na.sub+'</div>'+'<div style="display:inline-flex;align-items:center;gap:6px;background:'+na.color+';color:#0a0e1a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px">Let&#39;s Go &#8594;</div>'+'</div>'+(na.isSparks?('<div style="flex-shrink:0;margin:-8px -8px -8px 0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 160" width="90" height="130" style="display:block"><defs><filter id="bg"><feGaussianBlur stdDeviation="3" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter><filter id="ag"><feGaussianBlur stdDeviation="2" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter><linearGradient id="bg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="40%" stop-color="#f5c842"/><stop offset="100%" stop-color="#fb923c"/></linearGradient></defs><polygon points="62,5 40,72 57,72 44,155 90,68 68,68 86,5" fill="url(#bg2)" filter="url(#bg)" opacity="0.97"/><path d="M 46,30 Q 20,18 5,25 Q 15,22 8,35" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" filter="url(#ag)" opacity="0.9"/><circle cx="5" cy="25" r="2.5" fill="#2dd4bf" opacity="0.9"/><path d="M 42,60 Q 12,52 2,62 Q 14,56 6,70" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" filter="url(#ag)" opacity="0.85"/><circle cx="2" cy="62" r="2" fill="#a78bfa" opacity="0.85"/><path d="M 76,22 Q 100,10 108,18 Q 98,14 105,28" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" filter="url(#ag)" opacity="0.9"/><circle cx="108" cy="18" r="2.5" fill="#2dd4bf" opacity="0.9"/><path d="M 82,55 Q 105,48 108,60 Q 100,52 107,68" fill="none" stroke="#f5c842" stroke-width="1.8" stroke-linecap="round" filter="url(#ag)" opacity="0.8"/><circle cx="108" cy="60" r="2" fill="#f5c842" opacity="0.8"/><path d="M 50,130 Q 22,138 12,148 Q 24,140 16,155" fill="none" stroke="#fb7185" stroke-width="1.6" stroke-linecap="round" filter="url(#ag)" opacity="0.8"/><circle cx="12" cy="148" r="2" fill="#fb7185" opacity="0.8"/><path d="M 72,125 Q 96,132 100,145 Q 92,136 102,150" fill="none" stroke="#4ade80" stroke-width="1.6" stroke-linecap="round" filter="url(#ag)" opacity="0.75"/><circle cx="100" cy="145" r="2" fill="#4ade80" opacity="0.75"/><circle cx="28" cy="45" r="1.5" fill="#2dd4bf" opacity="0.7"/><circle cx="96" cy="38" r="1.5" fill="#f5c842" opacity="0.7"/><circle cx="18" cy="90" r="1.2" fill="#a78bfa" opacity="0.6"/><circle cx="98" cy="95" r="1.2" fill="#2dd4bf" opacity="0.6"/><text x="0" y="20" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#2dd4bf" opacity="0.9">ENGINEER</text><text x="0" y="50" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#a78bfa" opacity="0.9">HEALER</text><text x="68" y="8" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#2dd4bf" opacity="0.9">CODER</text><text x="70" y="44" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#f5c842" opacity="0.9">BUILDER</text><text x="0" y="158" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#fb7185" opacity="0.9">CREATOR</text><text x="68" y="155" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#4ade80" opacity="0.9">ARTIST</text></svg></div>'):'<div style="font-size:48px;opacity:.15">'+na.icon+'</div>')+'</div>'// Wire up click events after innerHTML set
   const mc=document.getElementById('mission-card');if(mc)mc.onclick=()=>showTab(na.tab);
+  // Wire interest grid
+  const igrid=document.getElementById('interest-grid');
+  if(igrid){igrid.querySelectorAll('[data-key]').forEach(function(el){el.addEventListener('click',function(){pickInterest(this.dataset.key);});});}
   const hp=document.getElementById('h-pathways');if(hp)hp.onclick=()=>showTab('pathways');
   const hm=document.getElementById('h-money');if(hm)hm.onclick=()=>showTab('money');
   const ht=document.getElementById('h-think');if(ht)ht.onclick=()=>showTab('think');
@@ -973,6 +989,255 @@ function updateBudgetChallenge(){
     '</div>';
 }
 
+function saveReflect(idx){
+  const val=document.getElementById('reflect-inp')?.value?.trim();
+  if(val){answers['reflect_'+idx]=val;awardXP(30);
+    const btn=document.getElementById('save-reflect');
+    if(btn){btn.textContent='Saved! +30 XP';btn.style.background='var(--green)';btn.style.color='#0a0e1a';btn.disabled=true;}
+  }
+}
+
+function renderProgress(el){
+  const cid=clusterKey();const cl=cid?CLUSTERS[cid]:null;
+  const badges=[
+    {e:'&#128640;',n:'Launched',earned:true},
+    {e:'&#127919;',n:'Matched',earned:!!student.cluster},
+    {e:'&#128176;',n:'Money Smart',earned:(answers.moneyMod||0)>=2},
+    {e:'&#129504;',n:'Deep Thinker',earned:!!(answers['reflect_0']||answers['reflect_1'])},
+    {e:'&#128506;&#65039;',n:'Pathfinder',earned:!!student.cluster},
+    {e:'&#11088;',n:'All-Star',earned:student.xp>=400},
+    {e:'&#9878;&#65039;',n:'Ethicist',earned:!!(answers['reflect_2']||answers['reflect_3'])},
+    {e:'&#128220;',n:'Humanist',earned:(answers.moneyMod||0)>=4}
+  ];
+
+  const completedItems=[
+    {label:'STEM/STEAM Interest Quiz',done:!!student.cluster,color:'var(--teal)'},
+    {label:'Career Pathway + Ethics + Humanities',done:!!student.cluster,color:'var(--teal)'},
+    {label:'Life & Money Skills ('+(answers.moneyMod||0)+' of 5 modules)',done:(answers.moneyMod||0)>=1,color:'var(--gold)'},
+    {label:'Big Questions Reflection',done:!!answers['reflect_0'],color:'var(--violet)'},
+    {label:'My Career Story',done:!!answers.storyStarted,color:'var(--coral)'},
+    {label:'200+ XP Earned',done:student.xp>=200,color:'var(--green)'}
+  ];
+
+  const preScales=['conf','aware','money','why'];
+  const scaleLabels={conf:'I feel confident in STEM/STEAM',aware:'I know careers that excite me',money:'I understand how money works',why:'I can see myself making a difference'};
+
+  el.innerHTML=
+    '<div class="h1 mb4">Your <span class="a">Progress</span></div>'+
+    '<p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.6">Everything you have built — STEM skills, life knowledge, and big thinking.</p>'+
+
+    '<div class="card mb12" style="border-color:rgba(245,200,66,.25);background:var(--gold-d);text-align:center">'+
+      '<div style="font-family:Bricolage Grotesque,sans-serif;font-size:48px;font-weight:800;color:var(--gold)">'+student.xp+'</div>'+
+      '<div style="font-size:13px;color:var(--muted)">Total XP Earned</div>'+
+    '</div>'+
+
+    (cl?'<div class="card mb12"><div class="lbl">Your STEM/STEAM Match</div><div class="flex aic g8 mt6"><span style="font-size:26px">'+cl.icon+'</span><span style="font-weight:700;font-size:16px">'+cl.name+'</span></div></div>':'')+
+
+    '<div class="card mb12"><div class="h2 mb12">&#127942; Badges</div>'+
+      '<div class="badge-row">'+badges.map(b=>'<div class="badge '+(b.earned?'earned':'')+'"><div class="bico">'+b.e+'</div><div>'+b.n+'</div></div>').join('')+'</div>'+
+    '</div>'+
+
+    '<div class="card mb12"><div class="h2 mb10">What You Have Completed</div>'+
+      '<div style="display:flex;flex-direction:column;gap:8px">'+
+        completedItems.map(item=>
+          '<div class="flex aic g8">'+
+            '<span style="color:'+(item.done?item.color:'var(--muted)')+'">'+( item.done?'&#10003;':'&#9675;')+'</span>'+
+            '<span style="font-size:13px;color:'+(item.done?'var(--text)':'var(--muted)')+'">'+item.label+'</span>'+
+          '</div>'
+        ).join('')+
+      '</div>'+
+    '</div>'+
+
+    '<div class="card mb12">'+
+      '<div class="h2 mb10">How Do You Feel Now?</div>'+
+      '<p style="font-size:13px;color:var(--muted);margin-bottom:16px">Rate yourself honestly — this is your post-program reflection.</p>'+
+      preScales.map(k=>
+        '<div class="mb12">'+
+          '<div class="lbl">'+scaleLabels[k]+'</div>'+
+          '<div class="scale" id="post-'+k+'"></div>'+
+          '<div class="scale-ends"><span>Not at all</span><span>Very much</span></div>'+
+        '</div>'
+      ).join('')+
+    '</div>'+
+    '<div style="height:24px"></div>';
+
+  preScales.forEach(k=>{
+    const row=document.getElementById('post-'+k);if(!row)return;
+    const preset=answers['post_'+k]||(student.postScores?.[k]||0);
+    if(preset)answers['post_'+k]=preset;
+    for(let i=1;i<=5;i++){
+      const btn=document.createElement('button');
+      btn.className='sb'+(preset===i?' act':'');
+      btn.textContent=i;
+      btn.onclick=()=>{row.querySelectorAll('.sb').forEach(b=>b.classList.remove('act'));btn.classList.add('act');answers['post_'+k]=i;};
+      row.appendChild(btn);
+    }
+  });
+}
+
+function renderStoryline(el){
+  const cid=clusterKey();
+  if(!cid){
+    el.innerHTML='<div class="h1 mb4"><span class="a">My Career Story</span></div>'+
+      '<div class="card" style="text-align:center;padding:32px">'+
+        '<div style="font-size:48px;margin-bottom:12px">&#128218;</div>'+
+        '<div class="h2 mb8">Complete the Interest Quiz First</div>'+
+        '<p style="font-size:14px;color:var(--muted);margin-bottom:20px">Your career story unlocks once you find your STEM/STEAM match.</p>'+
+        '<button class="btn btn-gold" onclick="showTab(\'pathways\')">Take Career Sparks &#8594;</button>'+
+      '</div>';
+    return;
+  }
+  const story=STORYLINES[cid];
+  if(!story){el.innerHTML='<div class="h1">Story not found</div>';return;}
+
+  if(!answers.storyStep) answers.storyStep=0;
+  if(!answers.storyChoices) answers.storyChoices=[];
+
+  const step=answers.storyStep;
+  const isIntro=step===0&&!answers.storyStarted;
+  const isDone=answers.storyChoices.length>=story.steps.length-1&&answers.storyStarted;
+
+  if(isIntro){
+    el.innerHTML=
+      '<div class="h1 mb4">Your <span class="a">Career Story</span></div>'+
+      '<p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6">Follow someone like you from middle school to their career in <strong style="color:var(--gold)">'+CLUSTERS[cid].name+'</strong>. Every choice matters — and none of them are wrong.</p>'+
+      '<div style="background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center">'+
+        '<div style="font-size:52px;margin-bottom:12px">'+CLUSTERS[cid].icon+'</div>'+
+        '<div style="font-family:Bricolage Grotesque,sans-serif;font-size:22px;font-weight:800;margin-bottom:6px">Meet '+story.name+'</div>'+
+        '<div style="font-size:14px;color:var(--muted);margin-bottom:4px">Currently in '+story.grade+' — just like some of you</div>'+
+        '<div style="font-size:14px;color:var(--teal);font-weight:600">Destination: '+story.job+'</div>'+
+        '<div style="font-size:12px;color:var(--muted);margin-top:4px">Year: '+story.year+'</div>'+
+      '</div>'+
+      '<button class="btn btn-gold btn-block" id="start-story">Start the Story &#8594;</button>';
+    const btn=document.getElementById('start-story');
+    if(btn)btn.onclick=function(){answers.storyStarted=true;showTab('storyline');};
+    return;
+  }
+
+  if(isDone){
+    const finalStep=story.steps[story.steps.length-1];
+    el.innerHTML=
+      '<div class="h1 mb4"><span class="a">The End.</span></div>'+
+      '<div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(45,212,191,.08));border:1px solid rgba(245,200,66,.25);border-radius:16px;padding:24px;margin-bottom:16px">'+
+        '<div style="font-size:40px;margin-bottom:12px">'+CLUSTERS[cid].icon+'</div>'+
+        '<div style="font-size:15px;line-height:1.75;color:var(--text)">'+finalStep.result+'</div>'+
+      '</div>'+
+      '<div class="card mb12">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Your Choices</div>'+
+        story.steps.slice(0,-1).map((s,i)=>
+          '<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">'+
+            '<span style="color:var(--teal);font-weight:700;min-width:90px;font-size:12px">'+s.year+'</span>'+
+            '<span style="font-size:13px">'+s.options[answers.storyChoices[i]||0]+'</span>'+
+          '</div>'
+        ).join('')+
+      '</div>'+
+      '<div class="alert at mb12">Every path in this story leads somewhere real. What matters is that you keep choosing.</div>'+
+      '<button class="btn btn-gold btn-block" id="back-pathway">Back to My Pathway &#8594;</button>'+
+      '<button class="btn btn-out btn-block" style="margin-top:8px" id="replay-story">Play Again</button>';
+    awardXP(80);
+    const bp=document.getElementById('back-pathway');
+    if(bp)bp.onclick=function(){showTab('pathways');};
+    const rs=document.getElementById('replay-story');
+    if(rs)rs.onclick=function(){answers.storyStep=0;answers.storyChoices=[];answers.storyStarted=false;showTab('storyline');};
+    return;
+  }
+
+  const current=story.steps[Math.min(step,story.steps.length-2)];
+  const progress=Math.round((step/(story.steps.length-1))*100);
+  const showResult=answers['storyResult_'+step];
+
+  if(showResult){
+    el.innerHTML=
+      '<div class="mb8"><div style="height:6px;background:var(--surf2);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px"></div></div></div>'+
+      '<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:5px 12px;display:inline-block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:14px">'+current.year+'</div>'+
+      '<div style="background:var(--surf);border:1px solid rgba(45,212,191,.3);border-radius:16px;padding:22px;margin-bottom:16px">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:8px">What happened next...</div>'+
+        '<div style="font-size:15px;line-height:1.7">'+current.result+'</div>'+
+      '</div>'+
+      '<button class="btn btn-gold btn-block" id="continue-story">Continue &#8594;</button>';
+    const cb=document.getElementById('continue-story');
+    if(cb)cb.onclick=function(){answers.storyStep=step+1;delete answers['storyResult_'+step];showTab('storyline');};
+    return;
+  }
+
+  el.innerHTML=
+    '<div class="mb12">'+
+      '<div class="flex jb aic mb6">'+
+        '<div style="font-size:12px;color:var(--muted);font-weight:600">'+current.year+' &mdash; '+story.name+'</div>'+
+        '<div style="font-size:12px;color:var(--muted)">Chapter '+(step+1)+' of '+(story.steps.length-1)+'</div>'+
+      '</div>'+
+      '<div style="height:6px;background:var(--surf2);border-radius:3px;overflow:hidden">'+
+        '<div style="height:100%;width:'+progress+'%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="background:var(--surf);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px">'+
+      '<div style="font-size:17px;font-weight:700;line-height:1.5;margin-bottom:20px">'+current.choice+'</div>'+
+      '<div id="story-opts">'+
+        current.options.map((opt,i)=>
+          '<div id="sopt-'+i+'" style="padding:16px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surf2);cursor:pointer;margin-bottom:10px;transition:all .2s;font-size:14px;font-weight:500;line-height:1.5">'+
+            '<span style="color:var(--gold);font-weight:800;margin-right:8px">'+(i===0?'A':'B')+'.</span>'+opt+
+          '</div>'
+        ).join('')+
+      '</div>'+
+    '</div>';
+
+  current.options.forEach((_,i)=>{
+    const optEl=document.getElementById('sopt-'+i);
+    if(optEl)optEl.onclick=function(){pickStory(step,i);};
+  });
+}
+
+function pickStory(step,choice){
+  if(!answers.storyChoices)answers.storyChoices=[];
+  answers.storyChoices[step]=choice;
+  answers['storyResult_'+step]=true;
+  const el=document.getElementById('sopt-'+choice);
+  if(el){el.style.borderColor='var(--gold)';el.style.background='var(--gold-d)';}
+  setTimeout(()=>showTab('storyline'),400);
+}
+
+
+
+function buildInterestGrid(){
+  var html='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:10px" id="interest-grid">';
+  var keys=Object.keys(INTEREST_MAP);
+  for(var i=0;i<keys.length;i++){
+    var k=keys[i];var v=INTEREST_MAP[k];
+    html+='<div id="int-'+k+'" data-key="'+k+'" style="border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer;background:var(--surf);transition:all .2s">';
+    html+='<div style="font-size:20px">'+v.icon+'</div>';
+    html+='<div style="font-size:9px;font-weight:600;color:var(--muted);margin-top:3px">'+v.label+'</div>';
+    html+='</div>';
+  }
+  html+='</div>';
+  return html;
+}
+
+function pickInterest(key){
+  const map=INTEREST_MAP[key];if(!map)return;
+  // Highlight selected
+  Object.keys(INTEREST_MAP).forEach(k=>{
+    const el=document.getElementById('int-'+k);
+    if(el){el.style.borderColor=k===key?'var(--teal)':'var(--border)';el.style.background=k===key?'var(--teal-d)':'var(--surf)';}
+  });
+  // Show tip and cluster suggestions
+  const tip=document.getElementById('interest-tip');
+  if(!tip)return;
+  const clusterNames={tech:'Tech & Innovation',health:'Health Sciences',engineering:'Engineering & Design',data:'Data & Analytics',energy:'Energy & Environment',creative:'Creative Technology'};
+  const clusterColors={tech:'var(--teal)',health:'var(--green)',engineering:'var(--gold)',data:'var(--violet)',energy:'#38bdf8',creative:'var(--coral)'};
+  tip.innerHTML=
+    '<div style="background:var(--teal-d);border:1px solid rgba(45,212,191,.25);border-radius:12px;padding:14px 16px">'+
+      '<div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:6px">&#128161; '+map.tip+'</div>'+
+      '<div style="font-size:12px;color:var(--muted);margin-bottom:10px">Students who love <strong style="color:var(--text)">'+map.label+'</strong> often match with:</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+        map.clusters.map(c=>
+          '<div onclick="showTab(\'pathways\')" style="padding:7px 14px;border-radius:8px;border:1px solid '+clusterColors[c]+';background:rgba(255,255,255,.04);cursor:pointer;font-size:13px;font-weight:700;color:'+clusterColors[c]+'">'+
+            clusterNames[c]+' &#8594;'+
+          '</div>'
+        ).join('')+
+      '</div>'+
+    '</div>';
+}
+
 function clusterKey(){
   const m={'Tech & Innovation':'tech','Health Sciences':'health','Engineering & Design':'engineering','Data & Analytics':'data','Energy & Environment':'energy','Creative Technology':'creative'};
   return m[student?.cluster]||null;
@@ -1007,7 +1272,7 @@ init(); loginStudent("zara");
           '<button onclick="showTab(\'pathways\')" class="btn btn-out btn-sm">Explore &#8594;</button>'+
         '</div>'+
       '</div>':'')+
-    '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">&#128218; ALL LEARNING MODULES</div>'+
+    '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">&#127919; What Are You Into?</div>'+buildInterestGrid()+'<div id="interest-tip" style="margin-bottom:14px"></div>'+'<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">&#128218; ALL LEARNING MODULES</div>'+
     '<div class="card clickable mb8" id="h-pathways" style="border-left:3px solid var(--teal)">'+
       '<div class="flex aic jb"><div class="flex aic g8"><span style="font-size:20px">&#128640;</span>'+
         '<div><div class="h3" style="margin-bottom:2px">STEM/STEAM Pathways</div>'+
