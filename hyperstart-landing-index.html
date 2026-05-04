@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HyperStart — Where Every Child's Journey Begins</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep: #070B1A;
+  --deep2: #0D1535;
+  --indigo: #1E2A6E;
+  --violet: #6B5CE7;
+  --sky: #4FC3F7;
+  --teal: #26C6DA;
+  --gold: #FFD54F;
+  --gold2: #FFB300;
+  --rose: #FF6B9D;
+  --green: #69F0AE;
+  --purple: #CE93D8;
+  --cream: #FFF8E1;
+  --white: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--deep);
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   SACRED GEOMETRY BACKGROUND
+   ============================================================ */
+.geo-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.geo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(107,92,231,0.15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: geoBreath 8s ease-in-out infinite;
+}
+
+@keyframes geoBreath {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.02); }
+}
+
+.geo-hex {
+  position: absolute;
+  opacity: 0.06;
+  animation: hexFloat linear infinite;
+}
+
+@keyframes hexFloat {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.06; }
+  90% { opacity: 0.06; }
+  100% { transform: translateY(-200px) rotate(180deg); opacity: 0; }
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ============================================================
+   SCREEN SYSTEM
+   ============================================================ */
+.screen {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  animation: screenIn 0.5s ease forwards;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   NAV BAR
+   ============================================================ */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  background: rgba(7,11,26,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(107,92,231,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-mark {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--violet), var(--sky));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(107,92,231,0.5);
+}
+
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--sky), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-logo-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: -4px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: rgba(107,92,231,0.25);
+  color: white;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.xp-pill {
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: var(--deep);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.avatar-nav {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet), var(--rose));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 2px solid rgba(107,92,231,0.5);
+  cursor: pointer;
+}
+
+/* ============================================================
+   WELCOME / HOME SCREEN
+   ============================================================ */
+.home-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+}
+
+.welcome-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(107,92,231,0.15);
+  border: 1px solid rgba(107,92,231,0.3);
+  color: var(--violet);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: tagGlow 3s ease-in-out infinite;
+}
+
+@keyframes tagGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(107,92,231,0); }
+  50% { box-shadow: 0 0 20px rgba(107,92,231,0.3); }
+}
+
+.home-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.home-title .line2 {
+  background: linear-gradient(135deg, var(--sky), var(--violet), var(--rose));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.home-cta-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--violet), var(--sky));
+  color: white;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 32px rgba(107,92,231,0.4);
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(107,92,231,0.5);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.07);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 16px 36px;
+  border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Feature cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  background: rgba(107,92,231,0.12);
+  border-color: rgba(107,92,231,0.3);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(107,92,231,0.5));
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.feature-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   DASHBOARD SCREEN
+   ============================================================ */
+.dashboard-body {
+  flex: 1;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Student sidebar */
+.student-card {
+  background: linear-gradient(160deg, rgba(30,42,110,0.8), rgba(107,92,231,0.2));
+  border: 1px solid rgba(107,92,231,0.25);
+  border-radius: 24px;
+  padding: 28px 24px;
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+
+.student-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet), var(--rose));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 16px;
+  border: 3px solid rgba(107,92,231,0.5);
+  box-shadow: 0 0 30px rgba(107,92,231,0.3);
+}
+
+.student-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.student-grade {
+  text-align: center;
+  font-size: 13px;
+  color: var(--sky);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* XP Bar */
+.xp-section {
+  margin-bottom: 20px;
+}
+
+.xp-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+
+.xp-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--violet), var(--sky));
+  border-radius: 4px;
+  width: 68%;
+  position: relative;
+  overflow: hidden;
+}
+
+.xp-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  to { left: 100%; }
+}
+
+.stats-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.stat-mini {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+
+.stat-mini-num {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+}
+
+.stat-mini-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+/* Badges */
+.badges-section { margin-bottom: 20px; }
+.badges-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+
+.badges-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  position: relative;
+}
+
+.badge-earned { background: rgba(107,92,231,0.25); border: 1px solid rgba(107,92,231,0.4); }
+.badge-locked { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.15); opacity: 0.4; }
+
+.streak-pill {
+  background: linear-gradient(135deg, rgba(255,183,0,0.2), rgba(255,213,79,0.1));
+  border: 1px solid rgba(255,183,0,0.3);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.streak-num {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+}
+
+.streak-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Main dashboard content */
+.dash-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+}
+
+/* Module cards */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.module-card {
+  border-radius: 20px;
+  padding: 22px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+}
+
+.mc-1 { background: linear-gradient(135deg, rgba(107,92,231,0.3), rgba(79,195,247,0.15)); border: 1px solid rgba(107,92,231,0.3); }
+.mc-2 { background: linear-gradient(135deg, rgba(255,183,0,0.2), rgba(255,107,157,0.1)); border: 1px solid rgba(255,183,0,0.25); }
+.mc-3 { background: linear-gradient(135deg, rgba(105,240,174,0.2), rgba(38,198,218,0.1)); border: 1px solid rgba(105,240,174,0.25); }
+.mc-4 { background: linear-gradient(135deg, rgba(206,147,216,0.2), rgba(107,92,231,0.1)); border: 1px solid rgba(206,147,216,0.25); }
+.mc-5 { background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(255,183,0,0.1)); border: 1px solid rgba(255,107,157,0.25); }
+.mc-6 { background: linear-gradient(135deg, rgba(79,195,247,0.2), rgba(105,240,174,0.1)); border: 1px solid rgba(79,195,247,0.25); }
+
+.module-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+.module-title { font-size: 15px; font-weight: 800; color: white; margin-bottom: 4px; }
+.module-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 14px; line-height: 1.4; }
+
+.module-progress {
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.module-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.mf-1 { background: linear-gradient(90deg, var(--violet), var(--sky)); width: 65%; }
+.mf-2 { background: linear-gradient(90deg, var(--gold2), var(--gold)); width: 40%; }
+.mf-3 { background: linear-gradient(90deg, var(--green), var(--teal)); width: 80%; }
+.mf-4 { background: linear-gradient(90deg, var(--purple), var(--violet)); width: 25%; }
+.mf-5 { background: linear-gradient(90deg, var(--rose), var(--gold2)); width: 55%; }
+.mf-6 { background: linear-gradient(90deg, var(--sky), var(--green)); width: 10%; }
+
+.module-pct { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.module-xp {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255,183,0,0.15);
+  border: 1px solid rgba(255,183,0,0.3);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+
+/* Daily challenge */
+.challenge-card {
+  background: linear-gradient(135deg, rgba(107,92,231,0.25), rgba(79,195,247,0.1));
+  border: 1px solid rgba(107,92,231,0.3);
+  border-radius: 20px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.challenge-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--violet), var(--sky));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(107,92,231,0.4);
+}
+
+.challenge-info { flex: 1; }
+.challenge-tag {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--sky);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.challenge-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.challenge-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+.challenge-reward {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.reward-xp {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, var(--violet), var(--sky));
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(107,92,231,0.4);
+}
+
+.start-btn:hover { transform: translateY(-2px); }
+
+/* ============================================================
+   FINANCIAL LITERACY SCREEN
+   ============================================================ */
+.lesson-body {
+  flex: 1;
+  padding: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.lesson-back {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  color: white;
+  transition: all 0.2s;
+}
+
+.lesson-back:hover { background: rgba(255,255,255,0.12); }
+
+.lesson-title-block { flex: 1; }
+.lesson-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.lesson-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.lesson-xp-pill {
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: var(--deep);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Question card */
+.question-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 36px;
+  margin-bottom: 24px;
+}
+
+.question-num {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.4;
+  margin-bottom: 32px;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.answer-btn {
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 18px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Nunito', sans-serif;
+  color: white;
+}
+
+.answer-btn:hover {
+  background: rgba(107,92,231,0.2);
+  border-color: rgba(107,92,231,0.5);
+  transform: translateY(-2px);
+}
+
+.answer-btn.correct {
+  background: rgba(105,240,174,0.15);
+  border-color: var(--green);
+}
+
+.answer-letter {
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.answer-text {
+  font-size: 15px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* Money visual */
+.money-visual {
+  background: linear-gradient(135deg, rgba(255,183,0,0.1), rgba(255,107,157,0.05));
+  border: 1px solid rgba(255,183,0,0.2);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.piggy-icon { font-size: 60px; flex-shrink: 0; }
+
+.money-info { flex: 1; }
+.money-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+.money-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.money-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+.coins-row {
+  display: flex;
+  gap: 8px;
+}
+.coin {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(255,183,0,0.3);
+  animation: coinBounce 2s ease-in-out infinite;
+}
+
+.coin:nth-child(2) { animation-delay: 0.2s; }
+.coin:nth-child(3) { animation-delay: 0.4s; }
+.coin:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes coinBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ============================================================
+   SKILLS SCREEN
+   ============================================================ */
+.skills-body {
+  flex: 1;
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.skills-header-block {
+  margin-bottom: 32px;
+}
+
+.skills-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.skills-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.45);
+}
+
+.skills-tree {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.skill-node {
+  border-radius: 20px;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.skill-node:hover { transform: translateY(-4px); }
+
+.sn-unlocked {
+  background: linear-gradient(160deg, rgba(107,92,231,0.3), rgba(79,195,247,0.1));
+  border: 2px solid rgba(107,92,231,0.4);
+}
+
+.sn-complete {
+  background: linear-gradient(160deg, rgba(105,240,174,0.2), rgba(38,198,218,0.1));
+  border: 2px solid rgba(105,240,174,0.4);
+}
+
+.sn-locked {
+  background: rgba(255,255,255,0.03);
+  border: 2px dashed rgba(255,255,255,0.1);
+  opacity: 0.5;
+}
+
+.skill-node-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.skill-node-title { font-size: 14px; font-weight: 800; color: white; margin-bottom: 4px; }
+.skill-node-level { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+
+.skill-stars {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.star { font-size: 14px; }
+.star-filled { filter: none; }
+.star-empty { opacity: 0.2; }
+
+.complete-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 2px solid var(--deep);
+}
+
+/* ============================================================
+   TROPHIES SCREEN
+   ============================================================ */
+.trophies-body {
+  flex: 1;
+  padding: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.trophies-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 48px 32px;
+  background: linear-gradient(160deg, rgba(107,92,231,0.15), rgba(255,183,0,0.05));
+  border: 1px solid rgba(107,92,231,0.2);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.trophies-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,183,0,0.08) 0%, transparent 60%);
+}
+
+.trophy-big { font-size: 80px; margin-bottom: 16px; display: block; filter: drop-shadow(0 0 24px rgba(255,183,0,0.4)); }
+.trophy-hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 8px;
+}
+.trophy-hero-sub { font-size: 16px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+
+.total-xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(255,183,0,0.2), rgba(255,213,79,0.1));
+  border: 1px solid rgba(255,183,0,0.3);
+  color: var(--gold);
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: 'Playfair Display', serif;
+}
+
+.trophies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.trophy-card {
+  border-radius: 20px;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.trophy-card:hover { transform: translateY(-4px); }
+
+.tc-earned {
+  background: linear-gradient(160deg, rgba(107,92,231,0.2), rgba(255,183,0,0.1));
+  border: 2px solid rgba(255,183,0,0.3);
+}
+
+.tc-locked {
+  background: rgba(255,255,255,0.03);
+  border: 2px dashed rgba(255,255,255,0.1);
+  opacity: 0.45;
+}
+
+.trophy-icon { font-size: 44px; margin-bottom: 10px; display: block; filter: drop-shadow(0 0 10px rgba(255,183,0,0.3)); }
+.trophy-name { font-size: 13px; font-weight: 800; color: white; margin-bottom: 4px; line-height: 1.3; }
+.trophy-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.3; margin-bottom: 8px; }
+.trophy-xp { font-size: 12px; color: var(--gold); font-weight: 800; }
+
+.lock-overlay {
+  font-size: 20px;
+  opacity: 0.3;
+}
+
+/* ============================================================
+   BOTTOM NAV (mobile style)
+   ============================================================ */
+.bottom-nav {
+  display: flex;
+  background: rgba(7,11,26,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(107,92,231,0.2);
+  padding: 12px 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px 0;
+}
+
+.bottom-nav-item:hover .bnav-icon { transform: scale(1.2); }
+
+.bnav-icon { font-size: 22px; transition: all 0.2s; }
+.bnav-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.03em;
+}
+
+.bottom-nav-item.active .bnav-label { color: var(--violet); }
+.bottom-nav-item.active .bnav-icon { filter: drop-shadow(0 0 8px rgba(107,92,231,0.8)); }
+
+.bnav-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--violet);
+  margin-top: 2px;
+  opacity: 0;
+}
+
+.bottom-nav-item.active .bnav-dot { opacity: 1; }
+
+/* Sacred geometry orbs */
+.orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(107,92,231,0.12) 0%, transparent 70%); top: -200px; right: -200px; }
+.orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(79,195,247,0.08) 0%, transparent 70%); bottom: 100px; left: -100px; }
+.orb3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,183,0,0.06) 0%, transparent 70%); top: 40%; left: 40%; }
+</style>
+</head>
+<body>
+
+<!-- SACRED GEOMETRY BACKGROUND -->
+<div class="geo-canvas">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <!-- Sacred rings -->
+  <div class="geo-ring" style="width:200px;height:200px;animation-delay:0s;"></div>
+  <div class="geo-ring" style="width:400px;height:400px;animation-delay:1s;"></div>
+  <div class="geo-ring" style="width:600px;height:600px;animation-delay:2s;"></div>
+  <div class="geo-ring" style="width:800px;height:800px;animation-delay:3s;"></div>
+  <div class="geo-ring" style="width:1000px;height:1000px;animation-delay:4s;"></div>
+  <div class="geo-ring" style="width:1200px;height:1200px;animation-delay:5s;"></div>
+
+  <!-- SVG Sacred Geometry -->
+  <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;opacity:0.04;" viewBox="0 0 800 800">
+    <!-- Flower of Life pattern -->
+    <g fill="none" stroke="#6B5CE7" stroke-width="1">
+      <circle cx="400" cy="400" r="80"/>
+      <circle cx="400" cy="320" r="80"/>
+      <circle cx="400" cy="480" r="80"/>
+      <circle cx="330" cy="360" r="80"/>
+      <circle cx="470" cy="360" r="80"/>
+      <circle cx="330" cy="440" r="80"/>
+      <circle cx="470" cy="440" r="80"/>
+      <!-- Outer ring -->
+      <circle cx="400" cy="240" r="80"/>
+      <circle cx="400" cy="560" r="80"/>
+      <circle cx="261" cy="320" r="80"/>
+      <circle cx="539" cy="320" r="80"/>
+      <circle cx="261" cy="480" r="80"/>
+      <circle cx="539" cy="480" r="80"/>
+      <!-- Large containing circles -->
+      <circle cx="400" cy="400" r="160"/>
+      <circle cx="400" cy="400" r="240"/>
+      <circle cx="400" cy="400" r="320"/>
+    </g>
+    <!-- Star of David -->
+    <g fill="none" stroke="#4FC3F7" stroke-width="0.5" opacity="0.5">
+      <polygon points="400,180 560,460 240,460"/>
+      <polygon points="400,620 240,340 560,340"/>
+    </g>
+    <!-- Metatron's cube lines -->
+    <g stroke="#FFD54F" stroke-width="0.3" opacity="0.3">
+      <line x1="400" y1="240" x2="400" y2="560"/>
+      <line x1="261" y1="320" x2="539" y2="480"/>
+      <line x1="261" y1="480" x2="539" y2="320"/>
+      <line x1="261" y1="320" x2="539" y2="320"/>
+      <line x1="261" y1="480" x2="539" y2="480"/>
+      <line x1="400" y1="240" x2="261" y2="480"/>
+      <line x1="400" y1="240" x2="539" y2="480"/>
+      <line x1="400" y1="560" x2="261" y2="320"/>
+      <line x1="400" y1="560" x2="539" y2="320"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ============================================================
+     SCREEN 1: WELCOME / HOME
+     ============================================================ -->
+<div id="screen-home" class="screen active">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">✦</div>
+      <div>
+        <div class="nav-logo-text">HyperStart</div>
+        <span class="nav-logo-sub">K–6 Learning Journey</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn active">Home</button>
+      <button class="nav-btn" onclick="showScreen('dashboard')">My Journey</button>
+      <button class="nav-btn" onclick="showScreen('financial')">Lessons</button>
+      <button class="nav-btn" onclick="showScreen('trophies')">Trophies</button>
+    </div>
+    <div class="nav-right">
+      <div class="xp-pill">⭐ 2,840 XP</div>
+      <div class="avatar-nav">🦄</div>
+    </div>
+  </nav>
+
+  <div class="home-hero">
+    <div class="welcome-tag">✦ K–6 Workforce Readiness Platform</div>
+    <h1 class="home-title">
+      Every Big Dream<br>
+      <span class="line2">Starts Here.</span>
+    </h1>
+    <p class="home-sub">
+      Discover careers, build real skills, earn trophies, and start your journey to a future you love — starting today.
+    </p>
+    <div class="home-cta-row">
+      <button class="btn-primary" onclick="window.location.href='grades-6-8.html'">Start My Journey ✦</button>
+      <button class="btn-secondary" onclick="showScreen('financial')">Today's Lesson →</button>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card" onclick="showScreen('financial')">
+        <span class="feature-icon">💰</span>
+        <div class="feature-title">Financial Literacy</div>
+        <div class="feature-sub">Learn how money works and how to make it work for you</div>
+      </div>
+      <div class="feature-card" onclick="showScreen('skills')">
+        <span class="feature-icon">🌟</span>
+        <div class="feature-title">Soft Skills</div>
+        <div class="feature-sub">Communication, teamwork, leadership and more</div>
+      </div>
+      <div class="feature-card" onclick="showScreen('dashboard')">
+        <span class="feature-icon">🚀</span>
+        <div class="feature-title">Career Explorer</div>
+        <div class="feature-sub">Discover 100+ careers aligned with your strengths</div>
+      </div>
+      <div class="feature-card" onclick="showScreen('trophies')">
+        <span class="feature-icon">🏆</span>
+        <div class="feature-title">Trophies & Badges</div>
+        <div class="feature-sub">Earn rewards for every skill you master</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-nav-item active"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('dashboard')"><span class="bnav-icon">🗺️</span><span class="bnav-label">Journey</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('financial')"><span class="bnav-icon">📚</span><span class="bnav-label">Learn</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('skills')"><span class="bnav-icon">⭐</span><span class="bnav-label">Skills</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('trophies')"><span class="bnav-icon">🏆</span><span class="bnav-label">Trophies</span><div class="bnav-dot"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 2: DASHBOARD / MY JOURNEY
+     ============================================================ -->
+<div id="screen-dashboard" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">✦</div>
+      <div>
+        <div class="nav-logo-text">HyperStart</div>
+        <span class="nav-logo-sub">My Journey</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showScreen('home')">Home</button>
+      <button class="nav-btn active">My Journey</button>
+      <button class="nav-btn" onclick="showScreen('financial')">Lessons</button>
+      <button class="nav-btn" onclick="showScreen('trophies')">Trophies</button>
+    </div>
+    <div class="nav-right">
+      <div class="xp-pill">⭐ 2,840 XP</div>
+      <div class="avatar-nav">🦄</div>
+    </div>
+  </nav>
+
+  <div class="dashboard-body">
+
+    <!-- Student sidebar -->
+    <div class="student-card">
+      <div class="student-avatar">🦄</div>
+      <div class="student-name">Lily Johnson</div>
+      <div class="student-grade">4th Grade · Explorer Level</div>
+
+      <div class="xp-section">
+        <div class="xp-label">
+          <span>Level Progress</span>
+          <span>2,840 / 4,000 XP</span>
+        </div>
+        <div class="xp-bar"><div class="xp-fill"></div></div>
+      </div>
+
+      <div class="stats-mini">
+        <div class="stat-mini"><div class="stat-mini-num">14</div><div class="stat-mini-label">Lessons Done</div></div>
+        <div class="stat-mini"><div class="stat-mini-num">8</div><div class="stat-mini-label">Badges Earned</div></div>
+        <div class="stat-mini"><div class="stat-mini-num">3</div><div class="stat-mini-label">Careers Found</div></div>
+        <div class="stat-mini"><div class="stat-mini-num">92%</div><div class="stat-mini-label">Avg Score</div></div>
+      </div>
+
+      <div class="badges-section">
+        <div class="badges-title">My Badges</div>
+        <div class="badges-row">
+          <div class="badge badge-earned" title="Money Master">💰</div>
+          <div class="badge badge-earned" title="Team Player">🤝</div>
+          <div class="badge badge-earned" title="Problem Solver">🧩</div>
+          <div class="badge badge-earned" title="Communicator">💬</div>
+          <div class="badge badge-locked">🌟</div>
+          <div class="badge badge-locked">🚀</div>
+        </div>
+      </div>
+
+      <div class="streak-pill">
+        <div>
+          <div class="streak-num">🔥 7</div>
+          <div class="streak-label">Day Streak!!</div>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.4;">Keep going —<br>you're on fire!!</div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="dash-main">
+
+      <!-- Daily challenge -->
+      <div>
+        <div class="section-title">⚡ Today's Challenge</div>
+        <div class="challenge-card">
+          <div class="challenge-icon">💰</div>
+          <div class="challenge-info">
+            <div class="challenge-tag">Financial Literacy · Saving & Spending</div>
+            <div class="challenge-title">If you earn $20, how much should you save?</div>
+            <div class="challenge-sub">Learn the 50/30/20 rule for smart money decisions!!</div>
+          </div>
+          <div class="challenge-reward">
+            <div class="reward-xp">+150 XP</div>
+            <button class="start-btn" onclick="showScreen('financial')">Start Now →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning modules -->
+      <div>
+        <div class="section-title">📚 My Learning Modules</div>
+        <div class="modules-grid">
+          <div class="module-card mc-1" onclick="showScreen('financial')">
+            <span class="module-xp">+50 XP</span>
+            <span class="module-icon">💰</span>
+            <div class="module-title">Financial Literacy</div>
+            <div class="module-sub">Saving, spending, earning and growing your money</div>
+            <div class="module-progress"><div class="module-fill mf-1"></div></div>
+            <div class="module-pct">65% Complete</div>
+          </div>
+          <div class="module-card mc-2" onclick="showScreen('skills')">
+            <span class="module-xp">+75 XP</span>
+            <span class="module-icon">🤝</span>
+            <div class="module-title">Teamwork & Leadership</div>
+            <div class="module-sub">Work with others and lead with confidence</div>
+            <div class="module-progress"><div class="module-fill mf-2"></div></div>
+            <div class="module-pct">40% Complete</div>
+          </div>
+          <div class="module-card mc-3">
+            <span class="module-xp">+60 XP</span>
+            <span class="module-icon">💬</span>
+            <div class="module-title">Communication</div>
+            <div class="module-sub">Express ideas clearly and listen actively</div>
+            <div class="module-progress"><div class="module-fill mf-3"></div></div>
+            <div class="module-pct">80% Complete</div>
+          </div>
+          <div class="module-card mc-4">
+            <span class="module-xp">+80 XP</span>
+            <span class="module-icon">🧩</span>
+            <div class="module-title">Problem Solving</div>
+            <div class="module-sub">Think critically and find creative solutions</div>
+            <div class="module-progress"><div class="module-fill mf-4"></div></div>
+            <div class="module-pct">25% Complete</div>
+          </div>
+          <div class="module-card mc-5">
+            <span class="module-xp">+100 XP</span>
+            <span class="module-icon">🚀</span>
+            <div class="module-title">Career Explorer</div>
+            <div class="module-sub">Discover what you want to be when you grow up</div>
+            <div class="module-progress"><div class="module-fill mf-5"></div></div>
+            <div class="module-pct">55% Complete</div>
+          </div>
+          <div class="module-card mc-6">
+            <span class="module-xp">+90 XP</span>
+            <span class="module-icon">🌱</span>
+            <div class="module-title">Goal Setting</div>
+            <div class="module-sub">Dream big and build a path to get there</div>
+            <div class="module-progress"><div class="module-fill mf-6"></div></div>
+            <div class="module-pct">10% Complete</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-nav-item" onclick="showScreen('home')"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item active"><span class="bnav-icon">🗺️</span><span class="bnav-label">Journey</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('financial')"><span class="bnav-icon">📚</span><span class="bnav-label">Learn</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('skills')"><span class="bnav-icon">⭐</span><span class="bnav-label">Skills</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('trophies')"><span class="bnav-icon">🏆</span><span class="bnav-label">Trophies</span><div class="bnav-dot"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 3: FINANCIAL LITERACY LESSON
+     ============================================================ -->
+<div id="screen-financial" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">✦</div>
+      <div>
+        <div class="nav-logo-text">HyperStart</div>
+        <span class="nav-logo-sub">Financial Literacy</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showScreen('home')">Home</button>
+      <button class="nav-btn" onclick="showScreen('dashboard')">My Journey</button>
+      <button class="nav-btn active">Lessons</button>
+      <button class="nav-btn" onclick="showScreen('trophies')">Trophies</button>
+    </div>
+    <div class="nav-right">
+      <div class="xp-pill">⭐ 2,840 XP</div>
+      <div class="avatar-nav">🦄</div>
+    </div>
+  </nav>
+
+  <div class="lesson-body">
+    <div class="lesson-header">
+      <button class="lesson-back" onclick="showScreen('dashboard')">←</button>
+      <div class="lesson-title-block">
+        <div class="lesson-tag">💰 Financial Literacy · Lesson 7</div>
+        <div class="lesson-title">Saving & Spending Smart</div>
+      </div>
+      <div class="lesson-xp-pill">+150 XP</div>
+    </div>
+
+    <!-- Money visual -->
+    <div class="money-visual">
+      <div class="piggy-icon">🐷</div>
+      <div class="money-info">
+        <div class="money-label">Your Savings Jar</div>
+        <div class="money-amount">$12.50</div>
+        <div class="money-sub">You saved 50% of your $25 allowance this week!! Amazing!!</div>
+      </div>
+      <div class="coins-row">
+        <div class="coin">🪙</div>
+        <div class="coin">🪙</div>
+        <div class="coin">🪙</div>
+        <div class="coin">💵</div>
+      </div>
+    </div>
+
+    <!-- Question -->
+    <div class="question-card">
+      <div class="question-num">QUESTION 3 OF 5 · ●●●○○</div>
+      <div class="question-text">
+        You receive $20 for your birthday!! 🎉<br>
+        Using the smart saving rule, how much should you save?
+      </div>
+      <div class="answer-grid">
+        <button class="answer-btn" onclick="selectAnswer(this, false)">
+          <span class="answer-letter">A</span>
+          <span class="answer-text">Save all $20</span>
+        </button>
+        <button class="answer-btn correct" onclick="selectAnswer(this, true)">
+          <span class="answer-letter">B</span>
+          <span class="answer-text">Save $10, spend $10</span>
+        </button>
+        <button class="answer-btn" onclick="selectAnswer(this, false)">
+          <span class="answer-letter">C</span>
+          <span class="answer-text">Spend all $20</span>
+        </button>
+        <button class="answer-btn" onclick="selectAnswer(this, false)">
+          <span class="answer-letter">D</span>
+          <span class="answer-text">Save $2, spend $18</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fun fact -->
+    <div style="background:linear-gradient(135deg,rgba(105,240,174,0.1),rgba(38,198,218,0.05));border:1px solid rgba(105,240,174,0.2);border-radius:16px;padding:20px 24px;display:flex;gap:14px;align-items:flex-start;">
+      <span style="font-size:28px;flex-shrink:0;">💡</span>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#69F0AE;margin-bottom:4px;">Fun Money Fact!!</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;">If you save just $5 a week starting at age 10, by the time you are 18 you will have saved over $2,000!! That could pay for your first car!! 🚗</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-nav-item" onclick="showScreen('home')"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('dashboard')"><span class="bnav-icon">🗺️</span><span class="bnav-label">Journey</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item active"><span class="bnav-icon">📚</span><span class="bnav-label">Learn</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('skills')"><span class="bnav-icon">⭐</span><span class="bnav-label">Skills</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('trophies')"><span class="bnav-icon">🏆</span><span class="bnav-label">Trophies</span><div class="bnav-dot"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 4: SKILLS PROGRESSION
+     ============================================================ -->
+<div id="screen-skills" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">✦</div>
+      <div>
+        <div class="nav-logo-text">HyperStart</div>
+        <span class="nav-logo-sub">Skills</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showScreen('home')">Home</button>
+      <button class="nav-btn" onclick="showScreen('dashboard')">My Journey</button>
+      <button class="nav-btn" onclick="showScreen('financial')">Lessons</button>
+      <button class="nav-btn" onclick="showScreen('trophies')">Trophies</button>
+    </div>
+    <div class="nav-right">
+      <div class="xp-pill">⭐ 2,840 XP</div>
+      <div class="avatar-nav">🦄</div>
+    </div>
+  </nav>
+
+  <div class="skills-body">
+    <div class="skills-header-block">
+      <div class="section-title">My Skill Tree</div>
+      <div class="skills-title">Build Your Superpowers!! ✨</div>
+      <div class="skills-sub">Every skill you master opens new career paths and opportunities</div>
+    </div>
+
+    <div class="skills-tree">
+      <div class="skill-node sn-complete">
+        <div class="complete-badge">✓</div>
+        <span class="skill-node-icon">💰</span>
+        <div class="skill-node-title">Money Basics</div>
+        <div class="skill-node-level">Level 3 · Complete</div>
+        <div class="skill-stars">
+          <span class="star star-filled">⭐</span>
+          <span class="star star-filled">⭐</span>
+          <span class="star star-filled">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-complete">
+        <div class="complete-badge">✓</div>
+        <span class="skill-node-icon">💬</span>
+        <div class="skill-node-title">Speaking Up</div>
+        <div class="skill-node-level">Level 3 · Complete</div>
+        <div class="skill-stars">
+          <span class="star star-filled">⭐</span>
+          <span class="star star-filled">⭐</span>
+          <span class="star star-filled">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-unlocked">
+        <span class="skill-node-icon">🤝</span>
+        <div class="skill-node-title">Teamwork</div>
+        <div class="skill-node-level">Level 2 · In Progress</div>
+        <div class="skill-stars">
+          <span class="star star-filled">⭐</span>
+          <span class="star star-filled">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-unlocked">
+        <span class="skill-node-icon">🧩</span>
+        <div class="skill-node-title">Problem Solving</div>
+        <div class="skill-node-level">Level 1 · In Progress</div>
+        <div class="skill-stars">
+          <span class="star star-filled">⭐</span>
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-unlocked">
+        <span class="skill-node-icon">🎯</span>
+        <div class="skill-node-title">Goal Setting</div>
+        <div class="skill-node-level">Level 1 · In Progress</div>
+        <div class="skill-stars">
+          <span class="star star-filled">⭐</span>
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-locked">
+        <span class="skill-node-icon">👑</span>
+        <div class="skill-node-title">Leadership</div>
+        <div class="skill-node-level">Locked · Level 5 needed</div>
+        <div class="skill-stars">
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-locked">
+        <span class="skill-node-icon">🌍</span>
+        <div class="skill-node-title">Global Thinking</div>
+        <div class="skill-node-level">Locked · Complete 6 skills</div>
+        <div class="skill-stars">
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+      <div class="skill-node sn-locked">
+        <span class="skill-node-icon">🚀</span>
+        <div class="skill-node-title">Career Ready</div>
+        <div class="skill-node-level">Locked · Master all skills</div>
+        <div class="skill-stars">
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+          <span class="star star-empty">⭐</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career connection -->
+    <div style="background:linear-gradient(135deg,rgba(107,92,231,0.15),rgba(79,195,247,0.05));border:1px solid rgba(107,92,231,0.25);border-radius:20px;padding:24px 28px;">
+      <div class="section-title" style="margin-bottom:16px;">🚀 Skills Unlock Careers</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="background:rgba(255,255,255,0.05);border-radius:14px;padding:14px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">👩‍💼</div>
+          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Entrepreneur</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);">Money + Leadership</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:14px;padding:14px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">👨‍⚕️</div>
+          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Doctor</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);">Problem Solving + Care</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:14px;padding:14px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">👩‍💻</div>
+          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Engineer</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);">Math + Problem Solving</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:14px;padding:14px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:6px;">🎨</div>
+          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Designer</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);">Creativity + Teamwork</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-nav-item" onclick="showScreen('home')"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('dashboard')"><span class="bnav-icon">🗺️</span><span class="bnav-label">Journey</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('financial')"><span class="bnav-icon">📚</span><span class="bnav-label">Learn</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item active"><span class="bnav-icon">⭐</span><span class="bnav-label">Skills</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('trophies')"><span class="bnav-icon">🏆</span><span class="bnav-label">Trophies</span><div class="bnav-dot"></div></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 5: TROPHIES
+     ============================================================ -->
+<div id="screen-trophies" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">✦</div>
+      <div>
+        <div class="nav-logo-text">HyperStart</div>
+        <span class="nav-logo-sub">Trophy Room</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showScreen('home')">Home</button>
+      <button class="nav-btn" onclick="showScreen('dashboard')">My Journey</button>
+      <button class="nav-btn" onclick="showScreen('financial')">Lessons</button>
+      <button class="nav-btn active">Trophies</button>
+    </div>
+    <div class="nav-right">
+      <div class="xp-pill">⭐ 2,840 XP</div>
+      <div class="avatar-nav">🦄</div>
+    </div>
+  </nav>
+
+  <div class="trophies-body">
+    <div class="trophies-hero">
+      <span class="trophy-big">🏆</span>
+      <div class="trophy-hero-name">Lily's Trophy Room</div>
+      <div class="trophy-hero-sub">You've earned 8 trophies so far!! Keep going!!</div>
+      <div class="total-xp">⭐ 2,840 Total XP Earned</div>
+    </div>
+
+    <div class="section-title" style="margin-bottom:16px;">🏆 My Trophies</div>
+    <div class="trophies-grid">
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🥇</span>
+        <div class="trophy-name">First Lesson Complete!!</div>
+        <div class="trophy-desc">Completed your very first lesson</div>
+        <div class="trophy-xp">+50 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">💰</span>
+        <div class="trophy-name">Money Smart</div>
+        <div class="trophy-desc">Finished the Saving Basics module</div>
+        <div class="trophy-xp">+150 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🔥</span>
+        <div class="trophy-name">7-Day Streak!!</div>
+        <div class="trophy-desc">Learned 7 days in a row</div>
+        <div class="trophy-xp">+200 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">💬</span>
+        <div class="trophy-name">Great Communicator</div>
+        <div class="trophy-desc">Mastered the Speaking Up skill</div>
+        <div class="trophy-xp">+100 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🧩</span>
+        <div class="trophy-name">Puzzle Master</div>
+        <div class="trophy-desc">Solved 10 challenge problems</div>
+        <div class="trophy-xp">+175 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🌟</span>
+        <div class="trophy-name">Star Student</div>
+        <div class="trophy-desc">Scored 100% on a quiz</div>
+        <div class="trophy-xp">+250 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🤝</span>
+        <div class="trophy-name">Team Player</div>
+        <div class="trophy-desc">Completed the Teamwork module</div>
+        <div class="trophy-xp">+125 XP</div>
+      </div>
+      <div class="trophy-card tc-earned">
+        <span class="trophy-icon">🚀</span>
+        <div class="trophy-name">Future Explorer</div>
+        <div class="trophy-desc">Discovered 3 career paths</div>
+        <div class="trophy-xp">+300 XP</div>
+      </div>
+      <div class="trophy-card tc-locked">
+        <span class="trophy-icon" style="opacity:0.3;">👑</span>
+        <div class="trophy-name">Leader in Training</div>
+        <div class="trophy-desc">Unlock Leadership skill first</div>
+        <div class="lock-overlay">🔒</div>
+      </div>
+      <div class="trophy-card tc-locked">
+        <span class="trophy-icon" style="opacity:0.3;">💎</span>
+        <div class="trophy-name">Diamond Scholar</div>
+        <div class="trophy-desc">Complete all 6 modules</div>
+        <div class="lock-overlay">🔒</div>
+      </div>
+      <div class="trophy-card tc-locked">
+        <span class="trophy-icon" style="opacity:0.3;">🌍</span>
+        <div class="trophy-name">World Changer</div>
+        <div class="trophy-desc">Master every skill tree</div>
+        <div class="lock-overlay">🔒</div>
+      </div>
+      <div class="trophy-card tc-locked">
+        <span class="trophy-icon" style="opacity:0.3;">🏅</span>
+        <div class="trophy-name">HyperStart Legend</div>
+        <div class="trophy-desc">Reach 10,000 XP</div>
+        <div class="lock-overlay">🔒</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-nav-item" onclick="showScreen('home')"><span class="bnav-icon">🏠</span><span class="bnav-label">Home</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('dashboard')"><span class="bnav-icon">🗺️</span><span class="bnav-label">Journey</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('financial')"><span class="bnav-icon">📚</span><span class="bnav-label">Learn</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item" onclick="showScreen('skills')"><span class="bnav-icon">⭐</span><span class="bnav-label">Skills</span><div class="bnav-dot"></div></div>
+    <div class="bottom-nav-item active"><span class="bnav-icon">🏆</span><span class="bnav-label">Trophies</span><div class="bnav-dot"></div></div>
+  </div>
+</div>
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function selectAnswer(btn, correct) {
+  if (correct) {
+    btn.style.background = 'rgba(105,240,174,0.2)';
+    btn.style.borderColor = '#69F0AE';
+    setTimeout(() => {
+      alert('🎉 Correct!! +30 XP earned!! The 50/50 rule helps you balance spending and saving!!');
+    }, 200);
+  } else {
+    btn.style.background = 'rgba(255,107,157,0.15)';
+    btn.style.borderColor = '#FF6B9D';
+    setTimeout(() => {
+      btn.style.background = '';
+      btn.style.borderColor = '';
+    }, 1000);
+  }
+}
+</script>
+
+</body>
+</html>
