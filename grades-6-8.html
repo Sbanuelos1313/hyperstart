@@ -171,9 +171,88 @@ select.inp option{background:var(--surf2)}
 .ag{background:var(--gold-d);border-color:rgba(245,200,66,.28);color:#f0d878}
 .at{background:var(--teal-d);border-color:rgba(45,212,191,.28);color:var(--teal)}
 .av{background:var(--violet-d);border-color:rgba(167,139,250,.28);color:var(--violet)}
+
+/* ── BACKGROUND CANVAS ── */
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+.bg-symbol {
+  position: absolute;
+  font-size: clamp(16px, 3vw, 28px);
+  opacity: 0.04;
+  color: var(--text);
+  animation: bgFloat linear infinite;
+  white-space: nowrap;
+  user-select: none;
+}
+.bg-word {
+  position: absolute;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(11px, 2vw, 16px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.035;
+  color: var(--text);
+  animation: bgDrift linear infinite;
+  white-space: nowrap;
+  user-select: none;
+}
+.bg-word.teal { color: var(--teal); opacity: 0.045; }
+.bg-word.gold { color: var(--gold); opacity: 0.04; }
+.bg-word.violet { color: var(--violet); opacity: 0.04; }
+
+@keyframes bgFloat {
+  0%   { transform: translateY(100vh) rotate(var(--rot, 0deg)); opacity: 0; }
+  5%   { opacity: 0.04; }
+  95%  { opacity: 0.04; }
+  100% { transform: translateY(-20vh) rotate(var(--rot, 0deg)); opacity: 0; }
+}
+@keyframes bgDrift {
+  0%   { transform: translateX(-20vw) translateY(var(--dy, 0px)); opacity: 0; }
+  5%   { opacity: 0.035; }
+  95%  { opacity: 0.035; }
+  100% { transform: translateX(110vw) translateY(var(--dy, 0px)); opacity: 0; }
+}
 </style>
 </head>
 <body>
+
+<div class="bg-canvas" id="bg-canvas">
+  <!-- Symbol layer -->
+  <div class="bg-symbol" style="left:8%;--rot:-12deg;animation-duration:55s;animation-delay:0s">E=mc²</div>
+  <div class="bg-symbol" style="left:22%;--rot:8deg;animation-duration:70s;animation-delay:-6s">🧬</div>
+  <div class="bg-symbol" style="left:38%;--rot:-5deg;animation-duration:48s;animation-delay:-11s">∑∫∂</div>
+  <div class="bg-symbol" style="left:55%;--rot:15deg;animation-duration:62s;animation-delay:-3s">⚙️</div>
+  <div class="bg-symbol" style="left:70%;--rot:-8deg;animation-duration:78s;animation-delay:-8s">🎵</div>
+  <div class="bg-symbol" style="left:85%;--rot:6deg;animation-duration:52s;animation-delay:-15s">π r²</div>
+  <div class="bg-symbol" style="left:15%;--rot:10deg;animation-duration:65s;animation-delay:-20s">⚡</div>
+  <div class="bg-symbol" style="left:45%;--rot:-14deg;animation-duration:60s;animation-delay:-13s">🔭</div>
+  <div class="bg-symbol" style="left:62%;--rot:5deg;animation-duration:72s;animation-delay:-4s">{ }</div>
+  <div class="bg-symbol" style="left:78%;--rot:-10deg;animation-duration:45s;animation-delay:-18s">∞</div>
+  <div class="bg-symbol" style="left:32%;--rot:12deg;animation-duration:68s;animation-delay:-9s">🏗️</div>
+  <div class="bg-symbol" style="left:92%;--rot:-6deg;animation-duration:58s;animation-delay:-2s">0101</div>
+  <div class="bg-symbol" style="left:5%;--rot:3deg;animation-duration:50s;animation-delay:-16s">H₂O</div>
+  <div class="bg-symbol" style="left:50%;--rot:-9deg;animation-duration:75s;animation-delay:-7s">📐</div>
+
+  <!-- Words layer -->
+  <div class="bg-word teal" style="top:8%;--dy:20px;animation-duration:88s;animation-delay:0s">ENGINEER</div>
+  <div class="bg-word gold" style="top:16%;--dy:-15px;animation-duration:105s;animation-delay:-8s">SCIENTIST</div>
+  <div class="bg-word" style="top:24%;--dy:30px;animation-duration:95s;animation-delay:-14s">CREATOR</div>
+  <div class="bg-word violet" style="top:32%;--dy:-10px;animation-duration:112s;animation-delay:-3s">BUILDER</div>
+  <div class="bg-word teal" style="top:40%;--dy:25px;animation-duration:82s;animation-delay:-19s">HEALER</div>
+  <div class="bg-word gold" style="top:48%;--dy:-20px;animation-duration:100s;animation-delay:-11s">DESIGNER</div>
+  <div class="bg-word" style="top:56%;--dy:15px;animation-duration:90s;animation-delay:-6s">ANALYST</div>
+  <div class="bg-word violet" style="top:64%;--dy:-25px;animation-duration:108s;animation-delay:-22s">INNOVATOR</div>
+  <div class="bg-word teal" style="top:72%;--dy:10px;animation-duration:92s;animation-delay:-1s">ARCHITECT</div>
+  <div class="bg-word gold" style="top:80%;--dy:-18px;animation-duration:102s;animation-delay:-16s">RESEARCHER</div>
+  <div class="bg-word" style="top:88%;--dy:22px;animation-duration:85s;animation-delay:-9s">CODER</div>
+  <div class="bg-word violet" style="top:12%;--dy:-12px;animation-duration:110s;animation-delay:-25s">MATHEMATICIAN</div>
+  <div class="bg-word teal" style="top:52%;--dy:18px;animation-duration:98s;animation-delay:-17s">ENVIRONMENTAL</div>
+  <div class="bg-word gold" style="top:68%;--dy:-8px;animation-duration:115s;animation-delay:-5s">BIOTECH</div>
+  <div class="bg-word" style="top:36%;--dy:28px;animation-duration:80s;animation-delay:-12s">COMPOSER</div>
+</div>
 <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
 
 <div class="screen" id="s-login">
@@ -215,7 +294,10 @@ select.inp option{background:var(--surf2)}
 
 <div class="screen active" id="s-app">
   <div class="topbar">
-    <div><div class="logo">Hyper<em>Start</em></div><span class="logo-sub" id="app-sub">STEM/STEAM &middot; Grades 6&ndash;8</span></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="34" height="34" style="flex-shrink:0;border-radius:8px"><rect width="100" height="100" rx="22" fill="#0a0e1a"/><rect width="100" height="100" rx="22" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="16" y="18" width="21" height="64" rx="10" fill="#5b8ecf"/><rect x="63" y="18" width="21" height="64" rx="10" fill="#9b6a7a"/><rect x="16" y="40" width="68" height="20" rx="10" fill="#f5c842"/></svg>
+      <div><div class="logo">Hyper<em>Start</em></div><span class="logo-sub" id="app-sub">STEM/STEAM &middot; Grades 6&ndash;8</span></div>
+    </div>
     <div class="chips">
       <button class="btn btn-out btn-sm" onclick="go('s-login')" style="font-size:12px;padding:6px 12px">&#8592; Profiles</button>
       <div class="chip chip-teal" id="t-name">&mdash;</div>
@@ -561,7 +643,7 @@ function renderHome(el){
 
   // Next action
   const actions={
-    quiz:  {icon:'🎯',label:'Play Career Sparks',sub:'Tap what sparks you — discover your path',tab:'pathways',color:'var(--teal)',bg:'rgba(45,212,191,0.1)',border:'rgba(45,212,191,0.3)'},
+    quiz:  {icon:'⚡',label:'Career Sparks',sub:'Tap what sparks you — discover your path',tab:'pathways',color:'var(--teal)',bg:'rgba(45,212,191,0.1)',border:'rgba(45,212,191,0.3)',isSparks:true},
     money: {icon:'💰',label:'Start Life & Money Skills',sub:'Module 1: Understanding Income',tab:'money',color:'var(--gold)',bg:'rgba(245,200,66,0.1)',border:'rgba(245,200,66,0.3)'},
     think: {icon:'🧠',label:'Answer Today Big Question',sub:'Philosophy, ethics and your purpose',tab:'think',color:'var(--violet)',bg:'rgba(167,139,250,0.1)',border:'rgba(167,139,250,0.3)'},
     prog:  {icon:'⭐',label:'Check Your Progress',sub:'See what you have built so far',tab:'progress',color:'var(--green)',bg:'rgba(74,222,128,0.1)',border:'rgba(74,222,128,0.3)'}
@@ -594,83 +676,12 @@ function renderHome(el){
     '</div>'+
 
     '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">⚡ Today&#39;s Mission</div>'+
-    '<div id="mission-card" style="background:'+na.bg+';border:2px solid '+na.border+';border-radius:16px;padding:22px 20px;margin-bottom:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden">'+
-      '<div style="position:absolute;right:-10px;top:-10px;font-size:80px;opacity:.08">'+na.icon+'</div>'+
-      '<div style="font-size:32px;margin-bottom:10px">'+na.icon+'</div>'+
-      '<div style="font-family:Bricolage Grotesque,sans-serif;font-size:20px;font-weight:800;color:'+na.color+';margin-bottom:4px">'+na.label+'</div>'+
-      '<div style="font-size:13px;color:var(--muted);margin-bottom:16px">'+na.sub+'</div>'+
-      '<div style="display:inline-flex;align-items:center;gap:6px;background:'+na.color+';color:#0a0e1a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px">'+
-        'Let&#39;s Go &#8594;'+
-      '</div>'+
-    '</div>'+
-
-    (cl?
-      '<div class="card mb12" style="border-color:rgba(245,200,66,.2);background:var(--gold-d)">'+
-        '<div class="flex aic jb">'+
-          '<div class="flex aic g8">'+
-            '<span style="font-size:30px">'+cl.icon+'</span>'+
-            '<div>'+
-              '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Your STEM/STEAM Match</div>'+
-              '<div style="font-weight:700;font-size:16px;color:var(--gold)">'+cl.name+'</div>'+
-            '</div>'+
-          '</div>'+
-          '<button onclick="showTab(\'pathways\')" class="btn btn-out btn-sm">Explore &#8594;</button>'+
-        '</div>'+
-      '</div>':'')+
-
-    '<div class="stat-row" style="margin-bottom:14px">'+
-      '<div class="stat"><div class="stat-n gold">'+student.xp+'</div><div class="stat-l">XP Earned</div></div>'+
-      '<div class="stat"><div class="stat-n" style="color:var(--coral);font-size:24px">'+(streak>0?'🔥'+streak:'—')+'</div><div class="stat-l">Day Streak</div></div>'+
-      '<div class="stat"><div class="stat-n teal">'+student.grade+'th</div><div class="stat-l">Grade</div></div>'+
-    '</div>'+
-
-    '<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">📚 All Learning Modules</div>'+
-    '<div class="card clickable mb8" id="h-pathways" style="border-left:3px solid var(--teal)">'+
-      '<div class="flex aic jb">'+
-        '<div class="flex aic g8"><span style="font-size:20px">🚀</span>'+
-          '<div><div class="h3" style="margin-bottom:2px">STEM/STEAM Pathways</div>'+
-          '<div style="font-size:12px;color:var(--muted)">Career exploration + ethics + humanities</div></div>'+
-        '</div>'+
-        '<div class="flex aic g8">'+(student.cluster?'<span class="tag tt" style="font-size:10px">Matched</span>':'')+
-        '<span style="color:var(--gold)">&#8594;</span></div>'+
-      '</div>'+
-    '</div>'+
-    '<div class="card clickable mb8" id="h-money" style="border-left:3px solid var(--gold)">'+
-      '<div class="flex aic jb">'+
-        '<div class="flex aic g8"><span style="font-size:20px">💰</span>'+
-          '<div><div class="h3" style="margin-bottom:2px">Life &amp; Money Skills</div>'+
-          '<div style="font-size:12px;color:var(--muted)">Module '+(mod+1)+' of 5'+(mod>0?' · In progress':'')+'</div></div>'+
-        '</div>'+
-        '<div class="flex aic g8">'+
-          (mod>0?'<div style="height:6px;width:60px;background:var(--surf2);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+Math.round((mod/5)*100)+'%;background:var(--gold);border-radius:3px"></div></div>':'')+
-          '<span style="color:var(--gold)">&#8594;</span>'+
-        '</div>'+
-      '</div>'+
-    '</div>'+
-    '<div class="card clickable mb8" id="h-think" style="border-left:3px solid var(--violet)">'+
-      '<div class="flex aic jb">'+
-        '<div class="flex aic g8"><span style="font-size:20px">🧠</span>'+
-          '<div><div class="h3" style="margin-bottom:2px">Big Questions</div>'+
-          '<div style="font-size:12px;color:var(--muted)">Philosophy, ethics &amp; purpose</div></div>'+
-        '</div><span style="color:var(--gold)">&#8594;</span>'+
-      '</div>'+
-    '</div>'+
-    '<div class="card clickable mb8" id="h-storyline" style="border-left:3px solid var(--violet)">'+'<div class="flex aic jb">'+'<div class="flex aic g8"><span style="font-size:20px">&#128218;</span>'+'<div><div class="h3" style="margin-bottom:2px">My Career Story</div>'+'<div style="font-size:12px;color:var(--muted)">Follow a story through choices to your future</div></div>'+'</div><span style="color:var(--gold)">&#8594;</span>'+'</div>'+'</div>'+'<div class="card clickable mb8" id="h-progress" style="border-left:3px solid var(--green)">'+
-      '<div class="flex aic jb">'+
-        '<div class="flex aic g8"><span style="font-size:20px">⭐</span>'+
-          '<div><div class="h3" style="margin-bottom:2px">My Progress</div>'+
-          '<div style="font-size:12px;color:var(--muted)">Badges, reflections &amp; post-survey</div></div>'+
-        '</div><span style="color:var(--gold)">&#8594;</span>'+
-      '</div>'+
-    '</div>'+
-    '<div style="height:24px"></div>';
-
-  // Wire up click events after innerHTML set
-  document.getElementById('mission-card').onclick=()=>showTab(na.tab);
-  document.getElementById('h-pathways').onclick=()=>showTab('pathways');
-  document.getElementById('h-money').onclick=()=>showTab('money');
-  document.getElementById('h-think').onclick=()=>showTab('think');
-  document.getElementById('h-progress').onclick=()=>showTab('progress');
+    '<div id="mission-card" style="background:'+na.bg+';border:2px solid '+na.border+';border-radius:16px;padding:22px 20px;margin-bottom:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:16px">'+'<div style="flex:1">'+'<div style="font-family:Bricolage Grotesque,sans-serif;font-size:20px;font-weight:800;color:'+na.color+';margin-bottom:4px">'+na.label+'</div>'+'<div style="font-size:13px;color:var(--muted);margin-bottom:16px">'+na.sub+'</div>'+'<div style="display:inline-flex;align-items:center;gap:6px;background:'+na.color+';color:#0a0e1a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px">Let&#39;s Go &#8594;</div>'+'</div>'+(na.isSparks?('<div style="flex-shrink:0;margin:-8px -8px -8px 0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 160" width="90" height="130" style="display:block"><defs><filter id="bg"><feGaussianBlur stdDeviation="3" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter><filter id="ag"><feGaussianBlur stdDeviation="2" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter><linearGradient id="bg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="40%" stop-color="#f5c842"/><stop offset="100%" stop-color="#fb923c"/></linearGradient></defs><polygon points="62,5 40,72 57,72 44,155 90,68 68,68 86,5" fill="url(#bg2)" filter="url(#bg)" opacity="0.97"/><path d="M 46,30 Q 20,18 5,25 Q 15,22 8,35" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" filter="url(#ag)" opacity="0.9"/><circle cx="5" cy="25" r="2.5" fill="#2dd4bf" opacity="0.9"/><path d="M 42,60 Q 12,52 2,62 Q 14,56 6,70" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" filter="url(#ag)" opacity="0.85"/><circle cx="2" cy="62" r="2" fill="#a78bfa" opacity="0.85"/><path d="M 76,22 Q 100,10 108,18 Q 98,14 105,28" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" filter="url(#ag)" opacity="0.9"/><circle cx="108" cy="18" r="2.5" fill="#2dd4bf" opacity="0.9"/><path d="M 82,55 Q 105,48 108,60 Q 100,52 107,68" fill="none" stroke="#f5c842" stroke-width="1.8" stroke-linecap="round" filter="url(#ag)" opacity="0.8"/><circle cx="108" cy="60" r="2" fill="#f5c842" opacity="0.8"/><path d="M 50,130 Q 22,138 12,148 Q 24,140 16,155" fill="none" stroke="#fb7185" stroke-width="1.6" stroke-linecap="round" filter="url(#ag)" opacity="0.8"/><circle cx="12" cy="148" r="2" fill="#fb7185" opacity="0.8"/><path d="M 72,125 Q 96,132 100,145 Q 92,136 102,150" fill="none" stroke="#4ade80" stroke-width="1.6" stroke-linecap="round" filter="url(#ag)" opacity="0.75"/><circle cx="100" cy="145" r="2" fill="#4ade80" opacity="0.75"/><circle cx="28" cy="45" r="1.5" fill="#2dd4bf" opacity="0.7"/><circle cx="96" cy="38" r="1.5" fill="#f5c842" opacity="0.7"/><circle cx="18" cy="90" r="1.2" fill="#a78bfa" opacity="0.6"/><circle cx="98" cy="95" r="1.2" fill="#2dd4bf" opacity="0.6"/><text x="0" y="20" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#2dd4bf" opacity="0.9">ENGINEER</text><text x="0" y="50" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#a78bfa" opacity="0.9">HEALER</text><text x="68" y="8" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#2dd4bf" opacity="0.9">CODER</text><text x="70" y="44" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#f5c842" opacity="0.9">BUILDER</text><text x="0" y="158" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#fb7185" opacity="0.9">CREATOR</text><text x="68" y="155" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#4ade80" opacity="0.9">ARTIST</text></svg></div>'):'<div style="font-size:48px;opacity:.15">'+na.icon+'</div>')+'</div>'// Wire up click events after innerHTML set
+  const mc=document.getElementById('mission-card');if(mc)mc.onclick=()=>showTab(na.tab);
+  const hp=document.getElementById('h-pathways');if(hp)hp.onclick=()=>showTab('pathways');
+  const hm=document.getElementById('h-money');if(hm)hm.onclick=()=>showTab('money');
+  const ht=document.getElementById('h-think');if(ht)ht.onclick=()=>showTab('think');
+  const hpr=document.getElementById('h-progress');if(hpr)hpr.onclick=()=>showTab('progress');
   const hStory=document.getElementById('h-storyline');if(hStory)hStory.onclick=()=>showTab('storyline');
 }
 
